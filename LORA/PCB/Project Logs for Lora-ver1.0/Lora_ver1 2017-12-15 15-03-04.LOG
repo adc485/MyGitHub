@@ -1,0 +1,12 @@
+Removed Pin From Net: NetName=VCC Pin=C3-1
+Removed Pin From Net: NetName=GND Pin=C3-2
+Removed Pin From Net: NetName=VCC Pin=Port1-4
+Removed Pin From Net: NetName=GND Pin=Port1-5
+Removed Pin From Net: NetName=LORA-TX Pin=Port1-6
+Removed Pin From Net: NetName=LORA-RX Pin=Port1-7
+Added Pin To Net: NetName=GND Pin=C3-1
+Added Pin To Net: NetName=VCC Pin=C3-2
+Added Pin To Net: NetName=LORA-RX Pin=Port1-4
+Added Pin To Net: NetName=LORA-TX Pin=Port1-5
+Added Pin To Net: NetName=VCC Pin=Port1-6
+Added Pin To Net: NetName=GND Pin=Port1-7

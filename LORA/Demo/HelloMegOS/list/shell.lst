@@ -1,0 +1,145 @@
+C51 COMPILER V9.52.0.0   SHELL                                                             12/21/2017 17:40:56 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE SHELL
+OBJECT MODULE PLACED IN .\output\shell.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE SCF\shell.c BROWSE ORDER INCDIR(.\SCF) DEBUG OBJECTEXTEND PRINT(.\list\shel
+                    -l.lst) TABS(2) OBJECT(.\output\shell.obj)
+
+line level    source
+
+   1          #include "apply.h"
+   2                                
+   3          #define   ShellcmdN     6
+   4          
+   5          struct  Shellcmd  code    ShellcmdList[ShellcmdN]={
+   6             { 0,"help",    "display command list"},
+   7             { 1,"reset",   "reset the systerm"},
+   8             { 2,"version", "display the version of systerm"},
+   9             { 3,"freset",  "Factory reset"},
+  10             { 4,"log",     "display the log list"},
+  11             { 5,"elog",    "erasure log"},
+  12               };
+  13          
+  14          u8    shell_getcmd(u8 *cmd,u8 length)
+  15          {
+  16   1         u8   i;
+  17   1         u8    string[11]={0};
+  18   1      
+  19   1        getword(cmd,string,1);
+  20   1        length=length;
+  21   1        if(*cmd>='0'&&*cmd<='9') 
+  22   1        {  
+  23   2           return (s2n(string));
+  24   2        }
+  25   1        else
+  26   1        {   
+  27   2           for(i=0;i<ShellcmdN;i++)
+  28   2           {
+  29   3            if(0==Stringcmp(string,ShellcmdList[i].Cmd))
+  30   3            { 
+  31   4             return  ShellcmdList[i].Num;
+  32   4            }
+  33   3           }
+  34   2         }
+  35   1         return  0xff;
+  36   1      }
+  37          
+  38          void   Shell(u8  *cmd,u8 length)
+  39          {
+  40   1        
+  41   1          u8   n;
+  42   1        printf("\n\ryou input cmd is>>%s",cmd); //
+  43   1        n=shell_getcmd(cmd,length);
+  44   1      
+  45   1            switch (n)
+  46   1            {
+  47   2            case  0: help();   break;
+  48   2            case  1: SW_RESET();   break;   
+  49   2            case  2: version();    break;
+  50   2            case  3: FactorySet();   break;
+  51   2            case  4: log();   break;
+  52   2            case  5: ErasePage(LOGPAGE);
+  53   2                 ErasePage(LOGPAGE+1);
+  54   2                 ErasePage(LOGPAGE+2);
+C51 COMPILER V9.52.0.0   SHELL                                                             12/21/2017 17:40:56 PAGE 2   
+
+  55   2                 ErasePage(LOGPAGE+3);
+  56   2                 printf("\n\rerasure log success"); //
+  57   2                break;
+  58   2      
+  59   2            //调用未用函数，防止连接警告
+  60   2            case  254:                                   
+  61   2                   SaveData(0,0,0); 
+  62   2                   SetDelayTimer(0,0);
+  63   2                 
+  64   2                  break;
+  65   2            default: printf("\n\rinput cmd unknown!\n\rinput \"help\"for command list."); break;  // 
+  66   2            }
+  67   1        printf("\n\rplease input cmd>>"); //
+  68   1         
+  69   1      }
+  70          
+  71          
+  72          
+  73          void   help(void)
+  74          {
+  75   1        u8   i;
+  76   1      
+  77   1          printf("\r\nAll the shell command as follow：");
+  78   1        printf("\r\nNum  Command     Brief");
+  79   1         for(i=0;i<ShellcmdN;i++)
+  80   1         {
+  81   2           printf("\r\n%03d  ",ShellcmdList[i].Num);
+  82   2           printf("%-10s  ",ShellcmdList[i].Cmd);
+  83   2           printf("%s",ShellcmdList[i].Brief);
+  84   2         }
+  85   1        printf("\r\nyou can input <Command> or <Num> direct");
+  86   1      }
+  87          
+  88          
+  89            void   version(void)
+  90          {
+  91   1         printf("\r\n  project: Hello MsgOS -51");
+  92   1         printf("\r\n software: V1.0");
+  93   1         printf("\r\n      MCU: C8051F340");
+  94   1         printf("\r\n   author: hou jin yu");
+  95   1         printf("\r\n     time: 2013.12.29");
+  96   1      }
+  97          //日志显示************************************************************************************************
+             -**
+  98          void   log(void)
+  99          {
+ 100   1         struct  EventLog code  *plog=(struct  EventLog code *)(LOGPAGE*PAGESIZE);
+ 101   1         printf("\n\rNum   Event Data  Brief");
+ 102   1          while(plog->Event != 0xffff)
+ 103   1         {
+ 104   2         printf("\n\r%-5d %-5d %-5d %s",plog->Number,plog->Event,plog->Data,plog->Brief);
+ 105   2         plog++;
+ 106   2         }
+ 107   1      }
+ 108          
+ 109          
+ 110          
+ 111          
+ 112          
+ 113          
+ 114          
+ 115          
+C51 COMPILER V9.52.0.0   SHELL                                                             12/21/2017 17:40:56 PAGE 3   
+
+ 116          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    630    ----
+   CONSTANT SIZE    =    616    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      23
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

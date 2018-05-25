@@ -1,0 +1,11 @@
+Removed Pin From Net: NetName=GND Pin=ANT-1
+Removed Pin From Net: NetName=ANT Pin=ANT-2
+Removed Pin From Net: NetName=ANT Pin=ANT-2
+Removed Pin From Net: NetName=ANT Pin=ANT-2
+Removed Pin From Net: NetName=ANT Pin=ANT-2
+Added Pin To Net: NetName=ANT Pin=ANT-1
+Added Pin To Net: NetName=GND Pin=ANT-2
+Added Pin To Net: NetName=GND Pin=ANT-2
+Added Pin To Net: NetName=GND Pin=ANT-2
+Added Pin To Net: NetName=GND Pin=ANT-2
+Added Room: Name=Lora-ver1.0

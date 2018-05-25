@@ -1,0 +1,7 @@
+"STARTUP.obj",
+"Lora-main.obj",
+"Lora-Uart.obj",
+"Lora_Protocol.obj",
+"Lora_Timer.obj" 
+TO "Lorav1.0" 
+RAMSIZE(256) 

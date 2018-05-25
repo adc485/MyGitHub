@@ -1,0 +1,11 @@
+".\output\init.obj",
+".\output\driver.obj",
+".\output\Flash.obj",
+".\output\main.obj",
+".\output\task.obj",
+".\output\memory.obj",
+".\output\shell.obj" 
+TO ".\output\MsgOS" 
+PRINT(".\list\MsgOS.m51") RAMSIZE(256) 
+CODE( 0X0000-0XFFFF )
+XDATA( 0X0000-0X0FFF )

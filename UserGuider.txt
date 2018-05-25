@@ -1,0 +1,11 @@
+
+
+
+上传一个目录的步骤:
+git config --global user.name "Exynos_Lau" 
+git config --global user.email "33012792@qq.com" 
+git init
+git add .
+git commit -m "initial commit"
+git remote add origin https://github.com/adc485/MyGitHub.git
+git push origin master

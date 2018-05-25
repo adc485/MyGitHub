@@ -1,0 +1,156 @@
+C51 COMPILER V9.52.0.0   LORA_TIMER                                                        01/08/2018 09:20:18 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE LORA_TIMER
+OBJECT MODULE PLACED IN Lora_Timer.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE Lora_Timer.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include "Lora.h"
+   2          unsigned int xdata t_Ms = 0;
+   3          unsigned char xdata t_S  = 0;
+   4          unsigned char xdata SYS_STATE;
+   5          unsigned char xdata Timer_Counter;
+   6          unsigned char xdata Timer_Info;
+   7          
+   8          void Lora_Timer_Init(void)
+   9          {
+  10   1          TMOD = 0x00;                               
+  11   1          TL0 = 0x66;                                 
+  12   1          TH0 = 0xfc;
+  13   1          TR0 = 1;                                    
+  14   1          ET0 = 1;                                    
+  15   1          EA = 1;
+  16   1      
+  17   1      }
+  18          void TM0_Isr() interrupt 1 using 1
+  19          {
+  20   1        t_Ms++;
+  21   1        if(t_Ms >= 250) // one ms
+  22   1        {
+  23   2          t_Ms = 0;
+  24   2          t_S++;
+  25   2          switch(SYS_STATE)
+  26   2            {
+  27   3                case 0 :
+  28   3                {
+  29   4                  Timer_Counter = 0;
+  30   4                }break;
+  31   3                case 1 :
+  32   3                {
+  33   4                  
+  34   4                }break;
+  35   3                case 2 :
+  36   3                {
+  37   4                  Timer_Counter ++;
+  38   4                
+  39   4                }break;
+  40   3                case 4:
+  41   3                {
+  42   4                  Timer_Counter ++;
+  43   4                  if(Timer_Counter > 3)
+  44   4                  {
+  45   5                      SYS_STATE = 0x64;//超时请重新发送
+  46   5                  } 
+  47   4                }
+  48   3                default: break;
+  49   3      
+  50   3            }
+  51   2          if(t_S >= 6)    //one S
+  52   2          {
+  53   3            t_S = 0 ;
+  54   3      
+  55   3          }
+C51 COMPILER V9.52.0.0   LORA_TIMER                                                        01/08/2018 09:20:18 PAGE 2   
+
+  56   2          
+  57   2        }   
+  58   1      }
+  59          void Delay20ms()    //@11.0592MHz
+  60          {
+  61   1        unsigned char i, j, k;
+  62   1      
+  63   1        _nop_();
+  64   1        _nop_();
+  65   1        i = 1;
+  66   1        j = 216;
+  67   1        k = 35;
+  68   1        do
+  69   1        {
+  70   2          do
+  71   2          {
+  72   3            while (--k);
+  73   3          } while (--j);
+  74   2        } while (--i);
+  75   1      }
+  76          
+  77          
+  78          //void Delay2S()    //@11.0592MHz
+  79          //{
+  80          //  unsigned char i, j, k;
+  81          
+  82          //  _nop_();
+  83          //  _nop_();
+  84          //  i = 85;
+  85          //  j = 12;
+  86          //  k = 155;
+  87          //  do
+  88          //  {
+  89          //    do
+  90          //    {
+  91          //      while (--k);
+  92          //    } while (--j);
+  93          //  } while (--i);
+  94          //}
+  95          void Delay1S()    //@11.0592MHz
+  96          {
+  97   1        unsigned char i, j, k;
+  98   1      
+  99   1        _nop_();
+ 100   1        _nop_();
+ 101   1        i = 43;
+ 102   1        j = 6;
+ 103   1        k = 203;
+ 104   1        do
+ 105   1        {
+ 106   2          do
+ 107   2          {
+ 108   3            while (--k);
+ 109   3          } while (--j);
+ 110   2        } while (--i);
+ 111   1      }
+ 112          //void Delay200ms()   //@11.0592MHz
+ 113          //{
+ 114          //  unsigned char i, j, k;
+ 115          
+ 116          //  _nop_();
+ 117          //  _nop_();
+C51 COMPILER V9.52.0.0   LORA_TIMER                                                        01/08/2018 09:20:18 PAGE 3   
+
+ 118          //  i = 9;
+ 119          //  j = 104;
+ 120          //  k = 139;
+ 121          //  do
+ 122          //  {
+ 123          //    do
+ 124          //    {
+ 125          //      while (--k);
+ 126          //    } while (--j);
+ 127          //  } while (--i);
+ 128          //}
+ 129          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    158    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      6    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

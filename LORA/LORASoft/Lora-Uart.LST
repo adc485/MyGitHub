@@ -1,0 +1,133 @@
+C51 COMPILER V9.52.0.0   LORA_UART                                                         01/08/2018 09:20:18 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE LORA_UART
+OBJECT MODULE PLACED IN Lora-Uart.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE Lora-Uart.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include "Lora.h"
+   2          
+   3          bit busy2;
+   4          unsigned char wptr2;
+   5          unsigned char rptr2;
+   6          unsigned char xdata buffer2[LORA_DATA_MAX];
+   7          
+   8          bit busy;
+   9          unsigned char wptr;
+  10          unsigned char rptr;
+  11          unsigned char xdata buffer[LORA_DATA_MAX];
+  12          
+  13          void Uart_to_Lora() interrupt 8 using 1
+  14          {
+  15   1          if (S2CON & 0x02)
+  16   1          {
+  17   2              S2CON &= ~0x02;
+  18   2              busy2 = 0;
+  19   2          }
+  20   1          if (S2CON & 0x01)//
+  21   1          {
+  22   2              S2CON &= ~0x01;
+  23   2      //        buffer2[wptr2++] = S2BUF;
+  24   2              Lora_Uart_Process();
+  25   2              wptr2 &= 0x0f;
+  26   2          }
+  27   1      }
+  28          void Uart_to_Mcu() interrupt 4 using 1
+  29          {
+  30   1          if (TI)
+  31   1          {
+  32   2              TI = 0;
+  33   2              busy = 0;
+  34   2          }
+  35   1          if (RI)
+  36   1          {
+  37   2              RI = 0;
+  38   2      //        buffer[wptr++] = SBUF;
+  39   2              MCU_Uart_Process();
+  40   2              wptr &= 0x0f;
+  41   2          }
+  42   1      }
+  43          
+  44          void UartInit()
+  45          {
+  46   1          SCON = 0x50;
+  47   1          TMOD = 0x00;
+  48   1          TL1 = BRT;
+  49   1          TH1 = BRT >> 8;
+  50   1          TR1 = 1;
+  51   1          AUXR |= 0x40;   
+  52   1          AUXR &= 0xFE;   
+  53   1          wptr = 0x00;
+  54   1          rptr = 0x00;
+  55   1          busy = 0;
+C51 COMPILER V9.52.0.0   LORA_UART                                                         01/08/2018 09:20:18 PAGE 2   
+
+  56   1      }
+  57          
+  58          
+  59          void Uart2Init()
+  60          {
+  61   1          S2CON = 0x50;
+  62   1          T2L = BRT2;
+  63   1          T2H = BRT2 >> 8;
+  64   1          AUXR |= 0x14;
+  65   1          wptr2 = 0x00;
+  66   1          rptr2 = 0x00;
+  67   1          busy2 = 0;
+  68   1      }
+  69          
+  70          void UartSend(char dat)
+  71          {
+  72   1          while (busy);
+  73   1          busy = 1;
+  74   1          SBUF = dat;
+  75   1      }
+  76          
+  77          
+  78          void Uart2Send(char dat)
+  79          {
+  80   1          while (busy2);
+  81   1          busy2 = 1;
+  82   1          S2BUF = dat;
+  83   1      }
+  84          
+  85          void UartSendStr(char *p)
+  86          {
+  87   1          while (*p)
+  88   1          {
+  89   2              UartSend(*p++);
+  90   2          }
+  91   1      }
+  92          
+  93          
+  94          void Uart2SendStr(char *p)
+  95          {
+  96   1          while (*p)
+  97   1          {
+  98   2              Uart2Send(*p++);
+  99   2          }
+ 100   1      }
+ 101          //void UartSendnum(unsigned char dat[],unsigned char num)
+ 102          //{
+ 103          //    unsigned char i=0;
+ 104          //    for(i = 0; i < num; i++)
+ 105          //      UartSend(dat[i]);
+ 106          //}
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    227    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =    256    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4       6
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      2    ----
+END OF MODULE INFORMATION.
+
+C51 COMPILER V9.52.0.0   LORA_UART                                                         01/08/2018 09:20:18 PAGE 3   
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

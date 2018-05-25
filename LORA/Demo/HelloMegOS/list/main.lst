@@ -1,0 +1,62 @@
+C51 COMPILER V9.52.0.0   MAIN                                                              12/21/2017 17:40:56 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\output\main.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE SCF\main.c BROWSE ORDER INCDIR(.\SCF) DEBUG OBJECTEXTEND PRINT(.\list\main.
+                    -lst) TABS(2) OBJECT(.\output\main.obj)
+
+line level    source
+
+   1          #include "apply.h"
+   2          
+   3          //********************************************************************
+   4          void  main(void)
+   5          {
+   6   1        InitTask();
+   7   1          while(1)
+   8   1          {
+   9   2               FEED_WDG();
+  10   2           if(FirstTask != NULL)//检查是否有任务
+  11   2           {    
+  12   3              LED_ON();
+  13   3              switch (FirstTask->Type)
+  14   3              {
+  15   4                //case   0: break;//此任务必须为空
+  16   4              
+  17   4              case   1: Shell(FirstTask->pData,FirstTask->Data); 
+  18   4                      free(FirstTask->pData);
+  19   4                    break;
+  20   4              case   2:printf("Hello MsgOS\r\n");
+  21   4                   AddDelayTask(1000*2,2 ,0,NULL);
+  22   4                       break;
+  23   4              default:SaveEventLog(5,FirstTask->Type,"error Task");break;
+  24   4              }
+  25   3              EA=0;
+  26   3              FirstTask->Type=0;  //释放已完成的任务结构体
+  27   3              FirstTask=FirstTask->Next;
+  28   3              EA=1;
+  29   3              LED_OFF();
+  30   3            }
+  31   2           else
+  32   2           {
+  33   3             IdleTask();//空闲任务
+  34   3           }
+  35   2      
+  36   2          }
+  37   1        
+  38   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    183    ----
+   CONSTANT SIZE    =     25    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

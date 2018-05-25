@@ -1,0 +1,5 @@
+Added Component: Designator=R1(0603)
+Added Pin To Net: NetName=GND Pin=R1-1
+Added Pin To Net: NetName=TRG Pin=R1-2
+Added Member To Class: ClassName=Lora-ver1.0 Member=Component R1 1M
+Added Room: Name=Lora-ver1.0

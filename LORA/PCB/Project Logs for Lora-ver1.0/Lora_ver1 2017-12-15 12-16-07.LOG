@@ -1,0 +1,29 @@
+Added Component: Designator=R2(0603)
+Added Component: Designator=R3(0603)
+Added Component: Designator=R4(0603)
+Added Component: Designator=R5(0603)
+Added Component: Designator=R6(0603)
+Added Component: Designator=R9(0603)
+Added Component: Designator=R10(0603)
+Added Pin To Net: NetName=NetLED1_1 Pin=R2-1
+Added Pin To Net: NetName=VCC Pin=R2-2
+Added Pin To Net: NetName=NetLED2_1 Pin=R3-1
+Added Pin To Net: NetName=VCC Pin=R3-2
+Added Pin To Net: NetName=NetLED3_1 Pin=R4-1
+Added Pin To Net: NetName=VCC Pin=R4-2
+Added Pin To Net: NetName=LORA-TX Pin=R5-1
+Added Pin To Net: NetName=P10 Pin=R5-2
+Added Pin To Net: NetName=LORA-RX Pin=R6-1
+Added Pin To Net: NetName=P11 Pin=R6-2
+Added Pin To Net: NetName=NetLED4_1 Pin=R9-1
+Added Pin To Net: NetName=VCC_5V Pin=R9-2
+Added Pin To Net: NetName=NetLED5_1 Pin=R10-1
+Added Pin To Net: NetName=VCC_5V Pin=R10-2
+Added Member To Class: ClassName=Lora-ver1.0 Member=Component R2 4.7K
+Added Member To Class: ClassName=Lora-ver1.0 Member=Component R3 4.7K
+Added Member To Class: ClassName=Lora-ver1.0 Member=Component R4 4.7K
+Added Member To Class: ClassName=Lora-ver1.0 Member=Component R5 0R
+Added Member To Class: ClassName=Lora-ver1.0 Member=Component R6 0R
+Added Member To Class: ClassName=Lora-ver1.0 Member=Component R9 4.7K
+Added Member To Class: ClassName=Lora-ver1.0 Member=Component R10 4.7K
+Added Room: Name=Lora-ver1.0

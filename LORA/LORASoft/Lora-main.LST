@@ -1,0 +1,84 @@
+C51 COMPILER V9.52.0.0   LORA_MAIN                                                         01/08/2018 09:20:18 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE LORA_MAIN
+OBJECT MODULE PLACED IN Lora-main.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE Lora-main.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          
+   2          #include "Lora.h"
+   3          
+   4          
+   5          
+   6          
+   7          void main()
+   8          {
+   9   1          SYS_STATE = 0;
+  10   1          UartInit();
+  11   1          Uart2Init();
+  12   1          IE2 = 0x01;
+  13   1          EA = 1;
+  14   1          ES |= 1;
+  15   1          EA |= 1;
+  16   1          Lora_Timer_Init();
+  17   1          SYS_TIMER_STOP;
+  18   1          Uart2SendStr("U2art Test1!\r\n");
+  19   1          UartSendStr("Uart Test LORAV1.0 !\r\n");
+  20   1          while (1)
+  21   1          {  
+  22   2              if(Lora_Uart_State == 1)
+  23   2              {
+  24   3                Lora_Buffer_Analysis();
+  25   3                Lora_Uart_State = 0;        
+  26   3              }
+  27   2              if(MCU_Uart_State ==1)
+  28   2              {
+  29   3                MCU_Uart_State = 0;
+  30   3                switch(buffer[4])
+  31   3                {
+  32   4                  case 0x01:
+  33   4                  {
+  34   5                    UartSendStr("Command OPID 0x01: !");
+  35   5                    UartSend(buffer[5]);
+  36   5                    UartSend(buffer[6]);
+  37   5                  }
+  38   4                  case 0x04:
+  39   4                  {
+  40   5                    Hand_PAYG();
+  41   5                  }break;
+  42   4                  case 0x05:
+  43   4                  {
+  44   5                    UartSendStr("Command 0x05: !");
+  45   5                    UartSend(buffer[5]);
+  46   5                    UartSend(buffer[6]);
+  47   5                  }
+  48   4                  case 0xfa:
+  49   4                  {
+  50   5                  
+  51   5                    SYS_STATE = 3;
+  52   5                  }
+  53   4                  default: break;
+  54   4                }
+  55   3              }
+C51 COMPILER V9.52.0.0   LORA_MAIN                                                         01/08/2018 09:20:18 PAGE 2   
+
+  56   2          }
+  57   1      }
+  58          
+  59          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    144    ----
+   CONSTANT SIZE    =     75    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

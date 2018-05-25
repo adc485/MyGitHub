@@ -1,0 +1,9 @@
+Removed Pin From Net: NetName=TRG Pin=U2-1
+Removed Pin From Net: NetName=GND Pin=U2-2
+Removed Pin From Net: NetName=TRG Pin=U3-1
+Removed Pin From Net: NetName=VCC Pin=U3-2
+Added Pin To Net: NetName=GND Pin=U2-1
+Added Pin To Net: NetName=TRG Pin=U2-2
+Added Pin To Net: NetName=VCC Pin=U3-1
+Added Pin To Net: NetName=TRG Pin=U3-2
+Added Room: Name=Lora-ver1.0

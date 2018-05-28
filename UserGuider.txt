@@ -7,11 +7,10 @@ git config --global user.email "33012792@qq.com"
 git init
 git add . 
 git commit -m "initial commit"
-
+git remote add origin https://github.com/adc485/MyGitHub.git
 
 fatal: remote origin already exists.
 git remote rm origin 
-git commit -m "initial commit"
-
 git remote add origin https://github.com/adc485/MyGitHub.git
-git push origin master
+
+git push origin master                            

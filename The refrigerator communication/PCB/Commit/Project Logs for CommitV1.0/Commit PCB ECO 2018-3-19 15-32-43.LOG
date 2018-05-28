@@ -1,0 +1,7 @@
+Removed Pin From Net: NetName=ANT Pin=Port5-1
+Added Component: Designator=C32(0603)
+Added Pin To Net: NetName=ANT Pin=C32-1
+Added Pin To Net: NetName=NetC32_2 Pin=C32-2
+Added Pin To Net: NetName=NetC32_2 Pin=Port5-1
+Added Net: Name=NetC32_2
+Added Member To Class: ClassName=CommitV2.0 Member=Component C32 NC

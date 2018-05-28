@@ -1,0 +1,334 @@
+Added Component: Designator=C1(0603)
+Added Component: Designator=C2(0603)
+Added Component: Designator=C10(0603)
+Added Component: Designator=C11(0603)
+Added Component: Designator=C12(0603)
+Added Component: Designator=C13(0603)
+Added Component: Designator=C14(0603)
+Added Component: Designator=C15(0603)
+Added Component: Designator=C16(0603)
+Added Component: Designator=C17(0603)
+Added Component: Designator=C18(0603)
+Added Component: Designator=C19(0603)
+Added Component: Designator=C20(0603)
+Added Component: Designator=C21(0603)
+Added Component: Designator=C22(0603)
+Added Component: Designator=C23(0603)
+Added Component: Designator=C24(0603)
+Added Component: Designator=C25(0603)
+Added Component: Designator=C26(0603)
+Added Component: Designator=C27(0603)
+Added Component: Designator=C28(0603)
+Added Component: Designator=C29(0603)
+Added Component: Designator=C30(0603)
+Added Component: Designator=C31(0603)
+Added Component: Designator=D1(0603)
+Added Component: Designator=D2(0603)
+Added Component: Designator=F1(PT4450 XTAL)
+Added Component: Designator=L1(0603)
+Added Component: Designator=L2(0603)
+Added Component: Designator=L3(0603)
+Added Component: Designator=L4(0603)
+Added Component: Designator=L5(0603)
+Added Component: Designator=L6(0603)
+Added Component: Designator=L7(0603)
+Added Component: Designator=LED4(LED-0603)
+Added Component: Designator=LED5(LED-0603)
+Added Component: Designator=Port2(USB-A)
+Added Component: Designator=Port3(STC_DEBUG)
+Added Component: Designator=Port4(USB-A)
+Added Component: Designator=Q1(SOT-23)
+Added Component: Designator=Q2(SOT-23)
+Added Component: Designator=Q3(SOT-23)
+Added Component: Designator=Q4(SOT-23)
+Added Component: Designator=R1(0603)
+Added Component: Designator=R3(0603)
+Added Component: Designator=R4(0603)
+Added Component: Designator=R5(0603)
+Added Component: Designator=R6(0603)
+Added Component: Designator=R7(0603)
+Added Component: Designator=R8(0603)
+Added Component: Designator=R9(0603)
+Added Component: Designator=R10(0603)
+Added Component: Designator=R11(0603)
+Added Component: Designator=R12(0603)
+Added Component: Designator=R13(0603)
+Added Component: Designator=R14(0603)
+Added Component: Designator=R 15(0603)
+Added Component: Designator=R16(0603)
+Added Component: Designator=R17(0603)
+Added Component: Designator=R18(0603)
+Added Component: Designator=R19(0603)
+Added Component: Designator=R20(0603)
+Added Component: Designator=R21(SWA-KEÌìÏßÄ¸×ù)
+Added Component: Designator=SW1(SW-1)
+Added Component: Designator=U1(LQPF-32)
+Added Component: Designator=U2(3A5A3D)
+Added Component: Designator=U3(AD8628)
+Added Component: Designator=u4(PT4450)
+Added Component: Designator=U5(PT4302)
+Added Component: Designator=Y3(PT4450 XTAL)
+Added Component: Designator=Y4(PT4306 XTAL)
+Added Pin To Net: NetName=GND Pin=C1-1
+Added Pin To Net: NetName=VCORE Pin=C1-2
+Added Pin To Net: NetName=GND Pin=C2-1
+Added Pin To Net: NetName=VCORE Pin=C2-2
+Added Pin To Net: NetName=VCC_5V Pin=C10-1
+Added Pin To Net: NetName=GND Pin=C10-2
+Added Pin To Net: NetName=VCC Pin=C11-1
+Added Pin To Net: NetName=GND Pin=C11-2
+Added Pin To Net: NetName=NetC12_1 Pin=C12-1
+Added Pin To Net: NetName=NetC12_2 Pin=C12-2
+Added Pin To Net: NetName=NetC13_1 Pin=C13-1
+Added Pin To Net: NetName=NetC13_2 Pin=C13-2
+Added Pin To Net: NetName=NetC13_1 Pin=C14-1
+Added Pin To Net: NetName=NetC12_1 Pin=C14-2
+Added Pin To Net: NetName=GND Pin=C15-1
+Added Pin To Net: NetName=TX Pin=C15-2
+Added Pin To Net: NetName=GND Pin=C16-1
+Added Pin To Net: NetName=NetC16_2 Pin=C16-2
+Added Pin To Net: NetName=NetC17_1 Pin=C17-1
+Added Pin To Net: NetName=GND Pin=C17-2
+Added Pin To Net: NetName=GND Pin=C18-1
+Added Pin To Net: NetName=NetC18_2 Pin=C18-2
+Added Pin To Net: NetName=RX Pin=C19-1
+Added Pin To Net: NetName=NetC18_2 Pin=C19-2
+Added Pin To Net: NetName=RX Pin=C20-1
+Added Pin To Net: NetName=GND Pin=C20-2
+Added Pin To Net: NetName=V2 Pin=C21-1
+Added Pin To Net: NetName=GND Pin=C21-2
+Added Pin To Net: NetName=NetC22_1 Pin=C22-1
+Added Pin To Net: NetName=GND Pin=C22-2
+Added Pin To Net: NetName=GND Pin=C23-1
+Added Pin To Net: NetName=NetC23_2 Pin=C23-2
+Added Pin To Net: NetName=GND Pin=C24-1
+Added Pin To Net: NetName=V2 Pin=C24-2
+Added Pin To Net: NetName=TXD Pin=C25-1
+Added Pin To Net: NetName=NetC26_1 Pin=C26-1
+Added Pin To Net: NetName=TX Pin=C26-2
+Added Pin To Net: NetName=NetC27_1 Pin=C27-1
+Added Pin To Net: NetName=RX Pin=C27-2
+Added Pin To Net: NetName=GND Pin=C28-1
+Added Pin To Net: NetName=V2 Pin=C28-2
+Added Pin To Net: NetName=NetC29_1 Pin=C29-1
+Added Pin To Net: NetName=NetC29_2 Pin=C29-2
+Added Pin To Net: NetName=NetC29_2 Pin=C30-1
+Added Pin To Net: NetName=GND Pin=C30-2
+Added Pin To Net: NetName=ANT Pin=C31-1
+Added Pin To Net: NetName=GND Pin=C31-2
+Added Pin To Net: NetName=NetC27_1 Pin=D1-1
+Added Pin To Net: NetName=NetC29_1 Pin=D1-2
+Added Pin To Net: NetName=NetC26_1 Pin=D2-1
+Added Pin To Net: NetName=NetC29_1 Pin=D2-2
+Added Pin To Net: NetName=NetF1_1 Pin=F1-1
+Added Pin To Net: NetName=GND Pin=F1-2
+Added Pin To Net: NetName=NetF1_3 Pin=F1-3
+Added Pin To Net: NetName=NetC12_2 Pin=L1-1
+Added Pin To Net: NetName=NetC13_2 Pin=L1-2
+Added Pin To Net: NetName=TX Pin=L2-1
+Added Pin To Net: NetName=NetC12_1 Pin=L2-2
+Added Pin To Net: NetName=NetC18_2 Pin=L3-1
+Added Pin To Net: NetName=GND Pin=L3-2
+Added Pin To Net: NetName=V2 Pin=L4-1
+Added Pin To Net: NetName=NetC27_1 Pin=L4-2
+Added Pin To Net: NetName=NetC26_1 Pin=L5-1
+Added Pin To Net: NetName=TXD Pin=L5-2
+Added Pin To Net: NetName=NetL6_1 Pin=L6-1
+Added Pin To Net: NetName=NetC29_1 Pin=L6-2
+Added Pin To Net: NetName=ANT Pin=L7-1
+Added Pin To Net: NetName=NetC29_2 Pin=L7-2
+Added Pin To Net: NetName=NetLED4_1 Pin=LED4-1
+Added Pin To Net: NetName=RXD Pin=LED4-2
+Added Pin To Net: NetName=NetLED5_1 Pin=LED5-1
+Added Pin To Net: NetName=TXD Pin=LED5-2
+Added Pin To Net: NetName=VCC_5V Pin=Port2-1
+Added Pin To Net: NetName=NetPort2_2 Pin=Port2-2
+Added Pin To Net: NetName=NetPort2_3 Pin=Port2-3
+Added Pin To Net: NetName=GND Pin=Port2-4
+Added Pin To Net: NetName=GND Pin=Port2-4
+Added Pin To Net: NetName=GND Pin=Port2-4
+Added Pin To Net: NetName=VCC Pin=Port3-1
+Added Pin To Net: NetName=GND Pin=Port3-2
+Added Pin To Net: NetName=RXD Pin=Port3-3
+Added Pin To Net: NetName=TXD Pin=Port3-4
+Added Pin To Net: NetName=TRG Pin=Port3-5
+Added Pin To Net: NetName=VOUT Pin=Port4-1
+Added Pin To Net: NetName=NetPort4_2 Pin=Port4-2
+Added Pin To Net: NetName=NetPort4_3 Pin=Port4-3
+Added Pin To Net: NetName=GND Pin=Port4-4
+Added Pin To Net: NetName=GND Pin=Port4-4
+Added Pin To Net: NetName=GND Pin=Port4-4
+Added Pin To Net: NetName=GND Pin=Q1-1
+Added Pin To Net: NetName=TRG Pin=Q1-2
+Added Pin To Net: NetName=VCORE Pin=Q1-3
+Added Pin To Net: NetName=VCC Pin=Q2-1
+Added Pin To Net: NetName=TRG Pin=Q2-2
+Added Pin To Net: NetName=VCORE Pin=Q2-3
+Added Pin To Net: NetName=CEOUT Pin=Q3-1
+Added Pin To Net: NetName=NetQ3_2 Pin=Q3-2
+Added Pin To Net: NetName=VOUT Pin=Q3-3
+Added Pin To Net: NetName=GND Pin=Q4-1
+Added Pin To Net: NetName=NetQ4_2 Pin=Q4-2
+Added Pin To Net: NetName=CNET Pin=Q4-3
+Added Pin To Net: NetName=GND Pin=R1-1
+Added Pin To Net: NetName=TRG Pin=R1-2
+Added Pin To Net: NetName=VCC Pin=R3-1
+Added Pin To Net: NetName=NetC13_2 Pin=R3-2
+Added Pin To Net: NetName=NetC16_2 Pin=R4-1
+Added Pin To Net: NetName=GND Pin=R4-2
+Added Pin To Net: NetName=RFTXD Pin=R5-1
+Added Pin To Net: NetName=NetC16_2 Pin=R5-2
+Added Pin To Net: NetName=VCC Pin=R6-1
+Added Pin To Net: NetName=NetC22_1 Pin=R6-2
+Added Pin To Net: NetName=RXCE Pin=R7-1
+Added Pin To Net: NetName=NetR7_2 Pin=R7-2
+Added Pin To Net: NetName=RFRXD Pin=R8-1
+Added Pin To Net: NetName=NetR8_2 Pin=R8-2
+Added Pin To Net: NetName=V2 Pin=R9-1
+Added Pin To Net: NetName=NetC23_2 Pin=R9-2
+Added Pin To Net: NetName=NetL6_1 Pin=R10-1
+Added Pin To Net: NetName=GND Pin=R10-2
+Added Pin To Net: NetName=NetPort2_2 Pin=R11-1
+Added Pin To Net: NetName=RXD Pin=R11-2
+Added Pin To Net: NetName=NetPort2_3 Pin=R12-1
+Added Pin To Net: NetName=TXD Pin=R12-2
+Added Pin To Net: NetName=NetLED4_1 Pin=R13-1
+Added Pin To Net: NetName=VCC_5V Pin=R13-2
+Added Pin To Net: NetName=NetLED5_1 Pin=R14-1
+Added Pin To Net: NetName=VCC_5V Pin=R14-2
+Added Pin To Net: NetName=NetPort4_2 Pin=R 15-1
+Added Pin To Net: NetName=RXD Pin=R 15-2
+Added Pin To Net: NetName=NetPort4_3 Pin=R16-1
+Added Pin To Net: NetName=TXD Pin=R16-2
+Added Pin To Net: NetName=NetQ3_2 Pin=R17-1
+Added Pin To Net: NetName=VCC_5V Pin=R17-2
+Added Pin To Net: NetName=NetQ3_2 Pin=R18-1
+Added Pin To Net: NetName=NetR18_2 Pin=R18-2
+Added Pin To Net: NetName=GND Pin=R19-1
+Added Pin To Net: NetName=NetQ3_2 Pin=R19-2
+Added Pin To Net: NetName=NetR18_2 Pin=R20-1
+Added Pin To Net: NetName=NetQ4_2 Pin=R20-2
+Added Pin To Net: NetName=GND Pin=R21-1
+Added Pin To Net: NetName=ANT Pin=R21-2
+Added Pin To Net: NetName=ANT Pin=R21-2
+Added Pin To Net: NetName=ANT Pin=R21-2
+Added Pin To Net: NetName=ANT Pin=R21-2
+Added Pin To Net: NetName=VCC Pin=SW1-1
+Added Pin To Net: NetName=TRG Pin=SW1-2
+Added Pin To Net: NetName=RFRXD Pin=U1-1
+Added Pin To Net: NetName=RFTXD Pin=U1-2
+Added Pin To Net: NetName=RXCE Pin=U1-3
+Added Pin To Net: NetName=CEOUT Pin=U1-4
+Added Pin To Net: NetName=VCORE Pin=U1-10
+Added Pin To Net: NetName=GND Pin=U1-12
+Added Pin To Net: NetName=RXD Pin=U1-13
+Added Pin To Net: NetName=TXD Pin=U1-14
+Added Pin To Net: NetName=CNET Pin=U1-15
+Added Pin To Net: NetName=GND Pin=U2-1
+Added Pin To Net: NetName=VCC_5V Pin=U2-2
+Added Pin To Net: NetName=VCC_5V Pin=U2-2
+Added Pin To Net: NetName=VCC Pin=U2-3
+Added Pin To Net: NetName=NetR18_2 Pin=U3-1
+Added Pin To Net: NetName=GND Pin=U3-2
+Added Pin To Net: NetName=VCC_5V Pin=U3-3
+Added Pin To Net: NetName=NetQ3_2 Pin=U3-4
+Added Pin To Net: NetName=VCC Pin=U3-5
+Added Pin To Net: NetName=Netu4_1 Pin=u4-1
+Added Pin To Net: NetName=GND Pin=u4-2
+Added Pin To Net: NetName=NetC12_2 Pin=u4-3
+Added Pin To Net: NetName=NetC17_1 Pin=u4-4
+Added Pin To Net: NetName=NetC16_2 Pin=u4-5
+Added Pin To Net: NetName=NetC16_2 Pin=u4-6
+Added Pin To Net: NetName=GND Pin=U5-1
+Added Pin To Net: NetName=GND Pin=U5-2
+Added Pin To Net: NetName=NetC18_2 Pin=U5-3
+Added Pin To Net: NetName=V2 Pin=U5-4
+Added Pin To Net: NetName=NetF1_3 Pin=U5-5
+Added Pin To Net: NetName=V2 Pin=U5-6
+Added Pin To Net: NetName=NetF1_1 Pin=U5-7
+Added Pin To Net: NetName=NetC22_1 Pin=U5-8
+Added Pin To Net: NetName=GND Pin=U5-9
+Added Pin To Net: NetName=VCC Pin=U5-10
+Added Pin To Net: NetName=VCC Pin=U5-11
+Added Pin To Net: NetName=NetR7_2 Pin=U5-12
+Added Pin To Net: NetName=NetR8_2 Pin=U5-13
+Added Pin To Net: NetName=NetC23_2 Pin=U5-14
+Added Pin To Net: NetName=V2 Pin=U5-15
+Added Pin To Net: NetName=NetU5_16 Pin=U5-16
+Added Pin To Net: NetName=NetC17_1 Pin=Y3-1
+Added Pin To Net: NetName=GND Pin=Y3-2
+Added Pin To Net: NetName=Netu4_1 Pin=Y3-3
+Added Pin To Net: NetName=NetU5_16 Pin=Y4-1
+Added Pin To Net: NetName=GND Pin=Y4-2
+Added Member To Class: ClassName=CommitV2.0 Member=Component C1 47uF
+Added Member To Class: ClassName=CommitV2.0 Member=Component C2 104
+Added Member To Class: ClassName=CommitV2.0 Member=Component C10 10uF
+Added Member To Class: ClassName=CommitV2.0 Member=Component C11 104
+Added Member To Class: ClassName=CommitV2.0 Member=Component C12 220pF5%
+Added Member To Class: ClassName=CommitV2.0 Member=Component C13 104
+Added Member To Class: ClassName=CommitV2.0 Member=Component C14 4.7pF5%
+Added Member To Class: ClassName=CommitV2.0 Member=Component C15 12pF5%
+Added Member To Class: ClassName=CommitV2.0 Member=Component C16 104
+Added Member To Class: ClassName=CommitV2.0 Member=Component C17 1pF
+Added Member To Class: ClassName=CommitV2.0 Member=Component C18 NC
+Added Member To Class: ClassName=CommitV2.0 Member=Component C19 1pF
+Added Member To Class: ClassName=CommitV2.0 Member=Component C20 NC
+Added Member To Class: ClassName=CommitV2.0 Member=Component C21 104
+Added Member To Class: ClassName=CommitV2.0 Member=Component C22 104
+Added Member To Class: ClassName=CommitV2.0 Member=Component C23 104
+Added Member To Class: ClassName=CommitV2.0 Member=Component C24 104
+Added Member To Class: ClassName=CommitV2.0 Member=Component C25 NC
+Added Member To Class: ClassName=CommitV2.0 Member=Component C26 NC
+Added Member To Class: ClassName=CommitV2.0 Member=Component C27 NC
+Added Member To Class: ClassName=CommitV2.0 Member=Component C28 104
+Added Member To Class: ClassName=CommitV2.0 Member=Component C29 220pF
+Added Member To Class: ClassName=CommitV2.0 Member=Component C30 NC
+Added Member To Class: ClassName=CommitV2.0 Member=Component C31 NC
+Added Member To Class: ClassName=CommitV2.0 Member=Component D1 SMP1320
+Added Member To Class: ClassName=CommitV2.0 Member=Component D2 SMP1320
+Added Member To Class: ClassName=CommitV2.0 Member=Component F1 10.7M
+Added Member To Class: ClassName=CommitV2.0 Member=Component L1 180uH5%
+Added Member To Class: ClassName=CommitV2.0 Member=Component L2 22nH5%
+Added Member To Class: ClassName=CommitV2.0 Member=Component L3 47nH
+Added Member To Class: ClassName=CommitV2.0 Member=Component L4 180nH
+Added Member To Class: ClassName=CommitV2.0 Member=Component L5 180nH
+Added Member To Class: ClassName=CommitV2.0 Member=Component L6 180nH
+Added Member To Class: ClassName=CommitV2.0 Member=Component L7 0R
+Added Member To Class: ClassName=CommitV2.0 Member=Component LED4 RX
+Added Member To Class: ClassName=CommitV2.0 Member=Component LED5 TX
+Added Member To Class: ClassName=CommitV2.0 Member=Component Port2 USB_A
+Added Member To Class: ClassName=CommitV2.0 Member=Component Port3 DEBUG
+Added Member To Class: ClassName=CommitV2.0 Member=Component Port4 USB_B
+Added Member To Class: ClassName=CommitV2.0 Member=Component Q1 AO3400(AO9T)
+Added Member To Class: ClassName=CommitV2.0 Member=Component Q2 AO3407(A50T)
+Added Member To Class: ClassName=CommitV2.0 Member=Component Q3 AO3407(P)
+Added Member To Class: ClassName=CommitV2.0 Member=Component Q4 9014
+Added Member To Class: ClassName=CommitV2.0 Member=Component R1 1M
+Added Member To Class: ClassName=CommitV2.0 Member=Component R3 0R
+Added Member To Class: ClassName=CommitV2.0 Member=Component R4 100k
+Added Member To Class: ClassName=CommitV2.0 Member=Component R5 0R
+Added Member To Class: ClassName=CommitV2.0 Member=Component R6 10R
+Added Member To Class: ClassName=CommitV2.0 Member=Component R7 10K
+Added Member To Class: ClassName=CommitV2.0 Member=Component R8 10K
+Added Member To Class: ClassName=CommitV2.0 Member=Component R9 5.1M
+Added Member To Class: ClassName=CommitV2.0 Member=Component R10 3.3K
+Added Member To Class: ClassName=CommitV2.0 Member=Component R11 0R
+Added Member To Class: ClassName=CommitV2.0 Member=Component R12 0R
+Added Member To Class: ClassName=CommitV2.0 Member=Component R13 4.7K
+Added Member To Class: ClassName=CommitV2.0 Member=Component R14 4.7K
+Added Member To Class: ClassName=CommitV2.0 Member=Component R 15 0R
+Added Member To Class: ClassName=CommitV2.0 Member=Component R16 0R
+Added Member To Class: ClassName=CommitV2.0 Member=Component R17 RES
+Added Member To Class: ClassName=CommitV2.0 Member=Component R18 10K
+Added Member To Class: ClassName=CommitV2.0 Member=Component R19 100K
+Added Member To Class: ClassName=CommitV2.0 Member=Component R20 0R
+Added Member To Class: ClassName=CommitV2.0 Member=Component R21 SMA
+Added Member To Class: ClassName=CommitV2.0 Member=Component SW1 REST
+Added Member To Class: ClassName=CommitV2.0 Member=Component U1 STC8F2K32S2
+Added Member To Class: ClassName=CommitV2.0 Member=Component U2 HT7533-1
+Added Member To Class: ClassName=CommitV2.0 Member=Component U3 LM321
+Added Member To Class: ClassName=CommitV2.0 Member=Component u4 PT4450
+Added Member To Class: ClassName=CommitV2.0 Member=Component U5 PT4302
+Added Member To Class: ClassName=CommitV2.0 Member=Component Y3 433.92M
+Added Member To Class: ClassName=CommitV2.0 Member=Component Y4 13.226M
+Added Room: Name=CommitV2.0

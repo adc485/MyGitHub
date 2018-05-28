@@ -1,0 +1,11 @@
+Change Component Comment : Designator=L7 Old Comment=0R1% New Comment=0R
+Change Component Comment : Designator=C17 Old Comment=1pF New Comment=1pF+-0.25P
+Change Component Comment : Designator=C19 Old Comment=1pF New Comment=1pF+-0.25P
+Change Component Comment : Designator=R9 Old Comment=5.1M New Comment=NC
+Change Component Comment : Designator=L3 Old Comment=47nH New Comment=47nH5%
+Change Component Comment : Designator=L4 Old Comment=180nH1% New Comment=180nH5%
+Change Component Comment : Designator=L5 Old Comment=180nH1% New Comment=180nH5%
+Change Component Comment : Designator=L6 Old Comment=180nH1% New Comment=180nH5%
+Change Component Comment : Designator=C29 Old Comment=220pF1% New Comment=220pF5%
+Change Component Comment : Designator=Q1 Old Comment=NMOSAO9T) New Comment=NMOS(AO9T)
+Added Room: Name=TRV1.0

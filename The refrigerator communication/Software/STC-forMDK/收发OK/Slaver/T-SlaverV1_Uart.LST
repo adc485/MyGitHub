@@ -1,0 +1,394 @@
+C51 COMPILER V9.52.0.0   T_SLAVERV1_UART                                                   04/18/2018 16:17:10 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE T_SLAVERV1_UART
+OBJECT MODULE PLACED IN T-SlaverV1_Uart.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE T-SlaverV1_Uart.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include "T-SlaverV1.h"
+   2          //#include "T-MasterV1_Uart.h"
+   3          
+   4          bit busy1;
+   5          unsigned char RX1_Cnt;
+   6          unsigned char TX1_Cnt;
+   7          unsigned char xdata Uart1_Buffer[UART1_RICEIVE_MAX];
+   8          
+   9          bit busy2;
+  10          unsigned char RX2_Cnt;
+  11          unsigned char TX2_Cnt;
+  12          unsigned char xdata Uart2_Buffer[UART2_RICEIVE_MAX];
+  13          /*************************************************
+  14            Copyright (C), 2016-2018, Omnivoltaic Energy Solutions Tech. Co., Ltd.
+  15            
+  16            Function:       // STCUart1Init
+  17          
+  18            Description:    // Uart1 Init P30=RxD P31=TxD
+  19          
+  20            Calls:          // System init
+  21          
+  22            Input:          // BRT is 波特率
+  23          
+  24            Output:         // Non
+  25            
+  26            Return:         // Non
+  27          
+  28            Others:         // 在头文件定义BRT波特率
+  29            
+  30            Author:         // Liu Rongkun(Micheal)
+  31            
+  32            Data:           // 2018/03/27
+  33          *************************************************/
+  34          void STCUart1Init(void)
+  35          {
+  36   1          SCON = 0x50;
+  37   1          TMOD = 0x00;
+  38   1          TL1 = BRT;              /*设置波特率*/
+  39   1          TH1 = BRT >> 8;         
+  40   1          TR1 = 1;
+  41   1          AUXR |= 0x40;   
+  42   1          AUXR &= 0xFE;   
+  43   1          TX1_Cnt = 0x00;
+  44   1          RX1_Cnt = 0x00;
+  45   1          busy1 = 0;
+  46   1      }
+  47          /*************************************************
+  48            Copyright (C), 2016-2018, Omnivoltaic Energy Solutions Tech. Co., Ltd.
+  49            
+  50            Function:       // STCUart1Init
+  51          
+  52            Description:    // Uart2 Init P10=RxD P11=TxD
+  53          
+  54            Calls:          // System init
+  55          
+C51 COMPILER V9.52.0.0   T_SLAVERV1_UART                                                   04/18/2018 16:17:10 PAGE 2   
+
+  56            Input:          // BRT is 波特率
+  57          
+  58            Output:         // Non
+  59            
+  60            Return:         // Non
+  61          
+  62            Others:         // 在头文件定义BRT波特率
+  63            
+  64            Author:         // Liu Rongkun(Micheal)
+  65            
+  66            Data:           // 2018/03/27
+  67          *************************************************/
+  68          void STCUart2Init(void)
+  69          {
+  70   1          S2CON = 0x50;
+  71   1          T2L = BRT2;
+  72   1          T2H = BRT2 >> 8;
+  73   1          AUXR |= 0x14;
+  74   1          TX2_Cnt = 0x00;
+  75   1          RX2_Cnt = 0x00;
+  76   1          busy2 = 0;
+  77   1        
+  78   1          IE2 = 0x01;
+  79   1          EA = 1;
+  80   1          ES |= 1;
+  81   1          EA |= 1;
+  82   1      }
+  83          /*************************************************
+  84            Copyright (C), 2016-2018, Omnivoltaic Energy Solutions Tech. Co., Ltd.
+  85            
+  86            Function:       // PrintString1
+  87          
+  88            Description:    // Send char string by Uart1
+  89          
+  90            Calls:          // System init
+  91          
+  92            Input:          // unsigned char 
+  93          
+  94            Output:         // Non
+  95            
+  96            Return:         // Non
+  97          
+  98            Others:         // Stop in /0
+  99            
+ 100            Author:         // Liu Rongkun(Micheal)
+ 101            
+ 102            Data:           // 2018/03/27
+ 103          *************************************************/
+ 104          void PrintString1(unsigned char *puts) //发送一个字符串
+ 105          {
+ 106   1          for (; *puts != 0;  puts++)     //遇到停止符0结束
+ 107   1          {
+ 108   2              SBUF = *puts;
+ 109   2              busy1 = 1;
+ 110   2              while(busy1);
+ 111   2          }
+ 112   1      }
+ 113          /*************************************************
+ 114            Copyright (C), 2016-2018, Omnivoltaic Energy Solutions Tech. Co., Ltd.
+ 115            
+ 116            Function:       // PrintString1
+ 117          
+C51 COMPILER V9.52.0.0   T_SLAVERV1_UART                                                   04/18/2018 16:17:10 PAGE 3   
+
+ 118            Description:    // Send char string by Uart1
+ 119          
+ 120            Calls:          // System init
+ 121          
+ 122            Input:          // unsigned char 
+ 123          
+ 124            Output:         // Non
+ 125            
+ 126            Return:         // Non
+ 127          
+ 128            Others:         // Stop in /0
+ 129            
+ 130            Author:         // Liu Rongkun(Micheal)
+ 131            
+ 132            Data:           // 2018/03/30
+ 133          *************************************************/
+ 134          //void PrintString1_num(unsigned char *puts,unsigned int len) //发送一个字符串
+ 135          //{
+ 136          //  unsigned int i;
+ 137          //  for(i = 0; i < len; i++)
+ 138          //  {
+ 139          //    SBUF = *puts++;
+ 140          //    busy1 = 1;
+ 141          //    while(busy1);
+ 142          //  }
+ 143          //}
+ 144          void PrintString1_num( unsigned char *str, unsigned int strlen) 
+ 145          {  
+ 146   1        unsigned int k = 0 ;  
+ 147   1        do  
+ 148   1       {  
+ 149   2        UartSend(*(str + k)); 
+ 150   2        k++; 
+ 151   2       }  
+ 152   1         while (k < strlen);  
+ 153   1      } 
+ 154          /*************************************************
+ 155            Copyright (C), 2016-2018, Omnivoltaic Energy Solutions Tech. Co., Ltd.
+ 156            
+ 157            Function:       // PrintString2_num
+ 158          
+ 159            Description:    // Send char string by Uart1
+ 160          
+ 161            Calls:          // System init
+ 162          
+ 163            Input:          // unsigned char  , Data Len
+ 164          
+ 165            Output:         // Non
+ 166            
+ 167            Return:         // Non
+ 168          
+ 169            Others:         // Stop in /0
+ 170            
+ 171            Author:         // Liu Rongkun(Micheal)
+ 172            
+ 173            Data:           // 2018/03/30
+ 174          *************************************************/
+ 175          //void PrintString2_num(unsigned char *puts,unsigned int len) //发送一个字符串
+ 176          //{
+ 177          //  unsigned int i;
+ 178          //  for(i = 0; i < len; i++)
+ 179          //  {
+C51 COMPILER V9.52.0.0   T_SLAVERV1_UART                                                   04/18/2018 16:17:10 PAGE 4   
+
+ 180          //    S2BUF = *puts++;
+ 181          //    busy2 = 1;
+ 182          //    while(busy2);
+ 183          //  }
+ 184          //}
+ 185          void PrintString2_num( unsigned char *str, unsigned int strlen) 
+ 186          {  
+ 187   1        unsigned int k = 0 ;  
+ 188   1        do  
+ 189   1       {  
+ 190   2        Uart2Send(*(str + k)); 
+ 191   2        k++; 
+ 192   2       }  
+ 193   1         while (k < strlen);  
+ 194   1      } 
+ 195          /*************************************************
+ 196            Copyright (C), 2016-2018, Omnivoltaic Energy Solutions Tech. Co., Ltd.
+ 197            
+ 198            Function:       // PrintString2
+ 199          
+ 200            Description:    // Send char string by Uart2
+ 201          
+ 202            Calls:          // System init
+ 203          
+ 204            Input:          // unsigned char 
+ 205          
+ 206            Output:         // Non
+ 207            
+ 208            Return:         // Non
+ 209          
+ 210            Others:         // Stop in /0
+ 211            
+ 212            Author:         // Liu Rongkun(Micheal)
+ 213            
+ 214            Data:           // 2018/03/27
+ 215          *************************************************/
+ 216          void PrintString2(unsigned char *puts) //发送一个字符串
+ 217          {
+ 218   1          for (; *puts != 0;  puts++)     //遇到停止符0结束
+ 219   1          {
+ 220   2              S2BUF = *puts;
+ 221   2              busy2 = 1;
+ 222   2              while(busy2);
+ 223   2          }
+ 224   1      }
+ 225          /*************************************************
+ 226            Copyright (C), 2016-2018, Omnivoltaic Energy Solutions Tech. Co., Ltd.
+ 227            
+ 228            Function:       // Uart2Send
+ 229          
+ 230            Description:    // Send char string by Uart2
+ 231          
+ 232            Calls:          // System init
+ 233          
+ 234            Input:          // unsigned char 
+ 235          
+ 236            Output:         // Non
+ 237            
+ 238            Return:         // Non
+ 239          
+ 240            Others:         // Stop in /0
+ 241            
+C51 COMPILER V9.52.0.0   T_SLAVERV1_UART                                                   04/18/2018 16:17:10 PAGE 5   
+
+ 242            Author:         // Liu Rongkun(Micheal)
+ 243            
+ 244            Data:           // 2018/03/29
+ 245          *************************************************/
+ 246          void Uart2Send(unsigned char dat)
+ 247          {
+ 248   1          while (busy2);
+ 249   1          busy2 = 1;
+ 250   1          S2BUF = dat;
+ 251   1      }
+ 252          /*************************************************
+ 253            Copyright (C), 2016-2018, Omnivoltaic Energy Solutions Tech. Co., Ltd.
+ 254            
+ 255            Function:       // UartSend
+ 256          
+ 257            Description:    // Send char string by Uart1
+ 258          
+ 259            Calls:          // System init
+ 260          
+ 261            Input:          // unsigned char 
+ 262          
+ 263            Output:         // Non
+ 264            
+ 265            Return:         // Non
+ 266          
+ 267            Others:         // Stop in /0
+ 268            
+ 269            Author:         // Liu Rongkun(Micheal)
+ 270            
+ 271            Data:           // 2018/03/29
+ 272          *************************************************/
+ 273          //void UartSend(unsigned char dat)
+ 274          //{
+ 275          //    while (busy1);
+ 276          //    busy1 = 1;
+ 277          //    SBUF = dat;
+ 278          //}
+ 279          void UartSend( unsigned char ch)  
+ 280          {  
+ 281   1      
+ 282   1         SBUF=ch;  
+ 283   1         while (TI== 0);  
+ 284   1         TI= 0 ;  
+ 285   1      } 
+ 286          /*************************************************
+ 287            Copyright (C), 2016-2018, Omnivoltaic Energy Solutions Tech. Co., Ltd.
+ 288            
+ 289            Function:       // STCUart2_Interrupt
+ 290          
+ 291            Description:    // Uart2 Interrupt Program
+ 292          
+ 293            Calls:          // CPU
+ 294          
+ 295            Input:          // Non
+ 296          
+ 297            Output:         // Non
+ 298            
+ 299            Return:         // Non
+ 300          
+ 301            Others:         // 串口2中断程序
+ 302            
+ 303            Author:         // Liu Rongkun(Micheal)
+C51 COMPILER V9.52.0.0   T_SLAVERV1_UART                                                   04/18/2018 16:17:10 PAGE 6   
+
+ 304            
+ 305            Data:           // 2018/03/27
+ 306          *************************************************/
+ 307          void STCUart2_Interrupt() interrupt 8 using 1
+ 308          {
+ 309   1          if (S2CON & 0x02)
+ 310   1          {
+ 311   2              S2CON &= ~0x02; /**/
+ 312   2              busy2 = 0;
+ 313   2          }
+ 314   1          if (S2CON & 0x01)/*判断是否有中断产生*/
+ 315   1          {
+ 316   2      //        S2CON &= ~0x01;
+ 317   2      //        Uart2_Buffer[RX2_Cnt] = S2BUF;  
+ 318   2      //        if(++RX2_Cnt >= UART2_RICEIVE_MAX)   RX2_Cnt = 0;    //防溢出
+ 319   2            S2CON &= ~0x01;
+ 320   2             Master_Uart_Process();
+ 321   2          }
+ 322   1      }
+ 323          
+ 324          /*************************************************
+ 325            Copyright (C), 2016-2018, Omnivoltaic Energy Solutions Tech. Co., Ltd.
+ 326            
+ 327            Function:       // STCUart1_Interrupt
+ 328          
+ 329            Description:    // Uart1 Interrupt Program
+ 330          
+ 331            Calls:          // CPU
+ 332          
+ 333            Input:          // Non
+ 334          
+ 335            Output:         // Non
+ 336            
+ 337            Return:         // Non
+ 338          
+ 339            Others:         // 串口1中断程序
+ 340            
+ 341            Author:         // Liu Rongkun(Micheal)
+ 342            
+ 343            Data:           // 2018/03/27
+ 344          *************************************************/
+ 345          void STCUart1_Interrupt() interrupt 4 using 1
+ 346          {
+ 347   1          if (TI)
+ 348   1          {
+ 349   2              TI = 0;
+ 350   2              busy1 = 0;
+ 351   2          }
+ 352   1          if (RI)
+ 353   1          {
+ 354   2              RI = 0;
+ 355   2              Uart1_Buffer[RX1_Cnt] = SBUF;
+ 356   2              if(++RX1_Cnt >= UART1_RICEIVE_MAX)   RX1_Cnt = 0;    //防溢出
+ 357   2          }
+ 358   1      }
+ 359          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    319    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =    256    ----
+C51 COMPILER V9.52.0.0   T_SLAVERV1_UART                                                   04/18/2018 16:17:10 PAGE 7   
+
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4      14
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      2    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

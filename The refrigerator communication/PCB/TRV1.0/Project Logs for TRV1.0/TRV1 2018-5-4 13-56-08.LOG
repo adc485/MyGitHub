@@ -1,0 +1,10 @@
+Added Component: Designator=Port2(USB-A)
+Added Pin To Net: NetName=RXD Pin=Port2-2
+Added Pin To Net: NetName=TXD Pin=Port2-3
+Added Pin To Net: NetName=GND Pin=Port2-4
+Added Pin To Net: NetName=GND Pin=Port2-4
+Added Pin To Net: NetName=GND Pin=Port2-4
+Added Pin To Net: NetName=VCC_5V Pin=Port2-1
+Added Net: Name=VCC_5V
+Added Member To Class: ClassName=TRV1.0 Member=Component Port2 USB_A
+Added Room: Name=TRV1.0

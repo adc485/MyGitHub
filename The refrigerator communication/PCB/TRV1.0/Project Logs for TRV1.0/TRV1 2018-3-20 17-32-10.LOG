@@ -1,0 +1,4 @@
+Added Component: Designator=P6(PCBComponent_1)
+Added Pin To Net: NetName=GND Pin=P6-1
+Added Pin To Net: NetName=CE Pin=P6-3
+Added Member To Class: ClassName=TRV1.0 Member=Component P6 PIN-5

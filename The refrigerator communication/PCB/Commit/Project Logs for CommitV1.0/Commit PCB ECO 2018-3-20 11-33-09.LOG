@@ -1,0 +1,5 @@
+Removed Pin From Net: NetName=TXD Pin=C25-1
+Removed Pin From Net: NetName=TXD Pin=L5-2
+Added Pin To Net: NetName=RFTXD Pin=C25-1
+Added Pin To Net: NetName=RFTXD Pin=L5-2
+Added Room: Name=CommitV2.0

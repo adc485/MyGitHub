@@ -1,0 +1,7 @@
+Change Component Comment : Designator=C17 Old Comment=1pF New Comment=1pF+-0.25p
+Change Component Comment : Designator=R10 Old Comment=3.3K New Comment=3.3K1%
+Change Component Comment : Designator=R7 Old Comment=10K New Comment=10K5%
+Change Component Comment : Designator=R8 Old Comment=10K New Comment=10K5%
+Change Component Comment : Designator=R6 Old Comment=10R New Comment=10R5%
+Change Component Comment : Designator=C28 Old Comment=1045% New Comment=104
+Added Room: Name=CommitV2.0

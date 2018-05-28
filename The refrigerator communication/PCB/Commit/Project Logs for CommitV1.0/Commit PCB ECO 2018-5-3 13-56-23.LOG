@@ -1,0 +1,7 @@
+Added Component: Designator=ANT(SWA-KEÌìÏßÄ¸×ù)
+Added Pin To Net: NetName=ANT Pin=ANT-1
+Added Pin To Net: NetName=GND Pin=ANT-2
+Added Pin To Net: NetName=GND Pin=ANT-2
+Added Pin To Net: NetName=GND Pin=ANT-2
+Added Pin To Net: NetName=GND Pin=ANT-2
+Added Member To Class: ClassName=CommitV2.0 Member=Component ANT SMA

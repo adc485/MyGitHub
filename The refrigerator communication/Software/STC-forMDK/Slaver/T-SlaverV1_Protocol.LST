@@ -1,0 +1,456 @@
+C51 COMPILER V9.52.0.0   T_SLAVERV1_PROTOCOL                                               05/18/2018 13:46:32 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE T_SLAVERV1_PROTOCOL
+OBJECT MODULE PLACED IN T-SlaverV1_Protocol.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE T-SlaverV1_Protocol.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include "T-SlaverV1.h"
+   2          
+   3          unsigned char bSynWord;
+   4          unsigned char DataSize = 0;
+   5          unsigned char Check_Btye_Xor;
+   6          unsigned char Uart2_RX_State;
+   7          unsigned char PaketSize_PTC;
+   8          
+   9          unsigned char xdata mac_temp[27];
+  10          int Remaining_Days;
+  11          
+  12          unsigned char code Remaining_PAYG_Days[] = {0xC5, 0x6a, 0x29, 0x06, 0x05, 0xf4};
+  13          unsigned char code Commond_PPID       [] = {0xC5, 0x6a, 0x29, 0x07, 0x08, 0x14, 0xcb};
+  14          unsigned char code Mac_Set_OK         [] = {0xaf, 0xaf, 0xaf, 0x06, 0x00, 0x6c};
+  15          unsigned char xdata Slaver_mac[27];
+  16          unsigned char xdata Master_mac[27];
+  17          unsigned char set_mac_flag;
+  18          
+  19          /*************************************************
+  20            Copyright (C), 2016-2018, Omnivoltaic Energy Solutions Tech. Co., Ltd.
+  21            
+  22            Function:       // Master_Uart_Process
+  23          
+  24            Description:    // 主机接收串口处理函数
+  25          
+  26            Calls:          // 
+  27          
+  28            Input:          // 
+  29          
+  30            Output:         // 
+  31            
+  32            Return:         // 
+  33          
+  34            Others:         // 
+  35            
+  36            Author:         // Liu Rongkun(Micheal)
+  37            
+  38            Data:           // 2018/03/29
+  39          *************************************************/
+  40          void Master_Uart_Process(void)
+  41          {
+  42   1        if(bSynWord == 0)
+  43   1        {
+  44   2          Uart2_Buffer[0] = Uart2_Buffer[1];
+  45   2          Uart2_Buffer[1] = Uart2_Buffer[2];
+  46   2          Uart2_Buffer[2] = S2BUF;
+  47   2           if( (Uart2_Buffer[0] == 0xc5) && (Uart2_Buffer[1] == 0x6a) && (Uart2_Buffer[2] == 0x29) )
+  48   2           {
+  49   3              bSynWord = 1;
+  50   3           }
+  51   2           if( (Uart2_Buffer[0] == 0xAF) && (Uart2_Buffer[1] == 0xAF) && (Uart2_Buffer[2] == 0xAF) )
+  52   2           {
+  53   3              bSynWord = 1;
+  54   3           }
+  55   2        }
+C51 COMPILER V9.52.0.0   T_SLAVERV1_PROTOCOL                                               05/18/2018 13:46:32 PAGE 2   
+
+  56   1        else
+  57   1        {
+  58   2          Uart2_Buffer[DataSize+3] = S2BUF;
+  59   2          PaketSize_PTC = Uart2_Buffer[3];
+  60   2          DataSize++;
+  61   2          if(DataSize >= PaketSize_PTC - 3)
+  62   2          {       
+  63   3            bSynWord = 0;
+  64   3            DataSize = 0;
+  65   3            Check_Btye_Xor = CRC8(Uart2_Buffer, PaketSize_PTC -1 );
+  66   3            if(Uart2_Buffer[PaketSize_PTC - 1] == Check_Btye_Xor)
+  67   3            {
+  68   4              if((Uart2_Buffer[0] == 0xAF)&&(Uart2_Buffer[1] == 0xAF))//PPID SAVE MAC
+  69   4              {
+  70   5                    set_mac_flag = 3;
+  71   5                    strncpy(mac_temp,Uart2_Buffer,27);
+  72   5                    mac_temp[0] = 0xc5;
+  73   5                    mac_temp[1] = 0x6a;
+  74   5                    mac_temp[2] = 0x29;
+  75   5                    mac_temp[26] = CRC8(mac_temp , mac_temp[3] - 1);
+  76   5                    P30 =~ P30;
+  77   5      //          U2R_OFF_IRQ;
+  78   5              }
+  79   4              if( (Uart2_Buffer[0] == 0xc5) && (Uart2_Buffer[1] == 0x6a) && (Uart2_Buffer[2] == 0x29) )
+  80   4              {
+  81   5                  if(Uart2_Buffer[4] == 0x05)//Remaining_Days
+  82   5                  {Uart2_RX_State = 1;}
+  83   5                  if(Uart2_Buffer[4] == 0x08) 
+  84   5                  {
+  85   6                    {Uart2_RX_State = 3;}
+  86   6                  }   
+  87   5              }
+  88   4                  U2R_OFF_IRQ;
+  89   4            }
+  90   3            else
+  91   3            {
+  92   4              Uart2_RX_State = 2;
+  93   4            }
+  94   3            
+  95   3          }
+  96   2        }
+  97   1      }
+  98          /*************************************************
+  99            Copyright (C), 2016-2018, Omnivoltaic Energy Solutions Tech. Co., Ltd.
+ 100            
+ 101            Function:       // Get_Remaining_Days获取CAMP剩余天数
+ 102          
+ 103            Description:    // 获取CAMP剩余天数
+ 104          
+ 105            Calls:          // 
+ 106          
+ 107            Input:          // num引导吗次数  timesec等待数据反馈多少秒
+ 108          
+ 109            Output:         // 
+ 110            
+ 111            Return:         // 返回剩余天数
+ 112          
+ 113            Others:         // 
+ 114            
+ 115            Author:         // Liu Rongkun(Micheal)
+ 116            
+ 117            Data:           // 2018/04/17
+C51 COMPILER V9.52.0.0   T_SLAVERV1_PROTOCOL                                               05/18/2018 13:46:32 PAGE 3   
+
+ 118          *************************************************/
+ 119          int Get_Remaining_Days(unsigned char num,unsigned char timesec)
+ 120          {
+ 121   1        
+ 122   1        unsigned char i, j;
+ 123   1        //Save Mac
+ 124   1      
+ 125   1        //send command Remaining_Days
+ 126   1            U2R_ON_IRQ;
+ 127   1            DATA_PIN_TX;
+ 128   1            Delay1ms();
+ 129   1            for(i = 0; i < num; i++)
+ 130   1            {
+ 131   2              Uart2Send(0xAA);
+ 132   2              Uart2Send(0xAA);
+ 133   2              Uart2Send(0xAA);
+ 134   2              Uart2Send(0xC0);
+ 135   2            }
+ 136   1            PrintString2_num(Remaining_PAYG_Days, 7);
+ 137   1            DATA_PIN_RX;
+ 138   1            Delay1ms();
+ 139   1            for(j = 0; j < timesec; j++)
+ 140   1            {
+ 141   2                Delay100ms();
+ 142   2            }
+ 143   1            if(Uart2_RX_State == 1)
+ 144   1            {
+ 145   2              Uart2_RX_State = 0;
+ 146   2              Remaining_Days = Uart2_Buffer[5] * 256 + Uart2_Buffer[6];
+ 147   2              return 2;
+ 148   2            }
+ 149   1      
+ 150   1        else
+ 151   1        {
+ 152   2      #ifdef MAC_PRINT    
+ 153   2          Slaver_Read_Mac(MAC_ADDR, Slaver_mac, 27);
+ 154   2          PrintString1_num(Slaver_mac, 27);
+ 155   2      #else
+              
+              #endif
+ 158   2          Debug_print("Communicate EEROR-0\r\n");
+ 159   2          return -1;
+ 160   2        }
+ 161   1        U2R_ON_IRQ;
+ 162   1        DATA_PIN_RX;
+ 163   1      }
+ 164          /*************************************************
+ 165            Copyright (C), 2016-2018, Omnivoltaic Energy Solutions Tech. Co., Ltd.
+ 166            
+ 167            Function:       // Run()运行电器
+ 168          
+ 169            Description:    // 获取运行权限
+ 170          
+ 171            Calls:          // 
+ 172          
+ 173            Input:          // 
+ 174          
+ 175            Output:         // 
+ 176            
+ 177            Return:         // 返回剩余天数
+ 178          
+ 179            Others:         // 
+C51 COMPILER V9.52.0.0   T_SLAVERV1_PROTOCOL                                               05/18/2018 13:46:32 PAGE 4   
+
+ 180            
+ 181            Author:         // Liu Rongkun(Micheal)
+ 182            
+ 183            Data:           // 2018/04/19
+ 184          *************************************************/
+ 185          int Run()
+ 186          {
+ 187   1        int temp;
+ 188   1        unsigned char Cycle_times = 3;
+ 189   1        for(Cycle_times = 3 ;Cycle_times < CYCLE_TIMES_MAX  ;Cycle_times++)
+ 190   1        {
+ 191   2          temp = Get_Remaining_Days(GUIDE_TIMES,Cycle_times);
+ 192   2          if(temp == 2)
+ 193   2          return 2;
+ 194   2          
+ 195   2        }
+ 196   1      #ifdef MAC_PRINT  
+ 197   1        Slaver_Read_Mac(MAC_ADDR, Slaver_mac, 27);
+ 198   1        PrintString1_num(Slaver_mac, 27);
+ 199   1      #else
+              
+              #endif  
+ 202   1        Debug_print("Communicate EEROR-1\r\n"); 
+ 203   1        return -1;
+ 204   1      }
+ 205          /*************************************************
+ 206            Copyright (C), 2016-2018, Omnivoltaic Energy Solutions Tech. Co., Ltd.
+ 207            
+ 208            Function:       // Slaver_Process处理通讯结果
+ 209          
+ 210            Description:    // 处理通讯结果
+ 211          
+ 212            Calls:          // 
+ 213          
+ 214            Input:          // days  CAMP剩余天数
+ 215          
+ 216            Output:         // 
+ 217            
+ 218            Return:         // NO
+ 219          
+ 220            Others:         // 
+ 221            
+ 222            Author:         // Liu Rongkun(Micheal)
+ 223            
+ 224            Data:           // 2018/04/19
+ 225          *************************************************/
+ 226          void Slaver_Process(int days)
+ 227          {
+ 228   1        
+ 229   1        unsigned char delays = 0;
+ 230   1          if( days == 2 )//成功得到充值天数
+ 231   1          {
+ 232   2            if(Remaining_Days > 0)
+ 233   2            {
+ 234   3      #ifdef MAC_PRINT          
+ 235   3              Slaver_Read_Mac(MAC_ADDR, Slaver_mac, 27);
+ 236   3              PrintString1_num(Slaver_mac, 27);
+ 237   3      #else
+              
+              #endif
+ 240   3              TURN_ON_LOAD;
+ 241   3              Debug_print("Open+++ Day > 0\r\n");
+C51 COMPILER V9.52.0.0   T_SLAVERV1_PROTOCOL                                               05/18/2018 13:46:32 PAGE 5   
+
+ 242   3            }
+ 243   2            else if(Remaining_Days == 0)
+ 244   2            {
+ 245   3              Debug_print("Open+++ Day == 0\r\n");
+ 246   3            }
+ 247   2            else if(Remaining_Days < 0)
+ 248   2            {
+ 249   3              UartSend(Uart2_Buffer[5]);
+ 250   3              UartSend(Uart2_Buffer[6]);
+ 251   3              Debug_print("Open+++ Day < 0\r\n");
+ 252   3            }
+ 253   2            else
+ 254   2            {
+ 255   3              Debug_print("ERROR-2\r\n");
+ 256   3            }
+ 257   2      //      P30 = ~P30;
+ 258   2          }
+ 259   1          else
+ 260   1          {
+ 261   2      #ifdef MAC_PRINT  
+ 262   2            Slaver_Read_Mac(MAC_ADDR, Slaver_mac, 27);
+ 263   2            PrintString1_num(Slaver_mac, 27);
+ 264   2      #else
+              
+              #endif
+ 267   2            Debug_print("Communicate EEROR-2\r\n"); 
+ 268   2          }
+ 269   1      #ifndef DEVELOP_MODEL
+                    for(delays = 0; delays < SYS_SLEEP_TIME; delays++)
+                      Delay1000000ms(); 
+                      
+              #else
+ 274   1          _nop_();
+ 275   1      
+ 276   1      
+ 277   1      #endif
+ 278   1      
+ 279   1        _nop_();
+ 280   1        _nop_();
+ 281   1      }
+ 282          /*************************************************
+ 283            Copyright (C), 2016-2018, Omnivoltaic Energy Solutions Tech. Co., Ltd.
+ 284            
+ 285            Function:       // Mac_process处理MAC
+ 286          
+ 287            Description:    // 处理通讯结果
+ 288          
+ 289            Calls:          // 
+ 290          
+ 291            Input:          // days  CAMP剩余天数
+ 292          
+ 293            Output:         // 
+ 294            
+ 295            Return:         // NO
+ 296          
+ 297            Others:         // 
+ 298            
+ 299            Author:         // Liu Rongkun(Micheal)
+ 300            
+ 301            Data:           // 2018/04/25
+ 302          *************************************************/
+ 303          void Mac_process(unsigned char num)
+C51 COMPILER V9.52.0.0   T_SLAVERV1_PROTOCOL                                               05/18/2018 13:46:32 PAGE 6   
+
+ 304          { 
+ 305   1        unsigned char  k,i,j;
+ 306   1        
+ 307   1        //Master Mac recive
+ 308   1      
+ 309   1        //Save Mac
+ 310   1        if(set_mac_flag  == 3)
+ 311   1        {
+ 312   2            k = num;
+ 313   2          do{
+ 314   3              EA = 0;
+ 315   3              Slaver_Write_Mac(MAC_ADDR, mac_temp, 27);
+ 316   3              Slaver_Read_Mac(MAC_ADDR, Slaver_mac, 27);
+ 317   3              EA =1;
+ 318   3            if((Slaver_mac[0] == 0xc5) && (Slaver_mac[1] == 0x6a) && (Slaver_mac[2] == 0x29) && (Slaver_mac[24] == 
+             -0x3c) && (Slaver_mac[25] == 0x3c))
+ 319   3            { 
+ 320   4              U2R_OFF_IRQ;
+ 321   4              DATA_PIN_TX;
+ 322   4              set_mac_flag = 0;
+ 323   4              Debug_print("Mac Save OK -\r\n");
+ 324   4              PrintString1("Mac Save OK -\r\n");
+ 325   4              for (i = 0; i < 5; i++)
+ 326   4              {
+ 327   5                for(j = 0; j < 2; j++)
+ 328   5                {
+ 329   6                  Uart2Send(0xAA);
+ 330   6                  Uart2Send(0xAA);
+ 331   6                  Uart2Send(0xAA);
+ 332   6                  Uart2Send(0xC0);
+ 333   6                }
+ 334   5                PrintString2_num(Mac_Set_OK, 6);
+ 335   5                Delay1000ms();
+ 336   5              }
+ 337   4              break;
+ 338   4            }
+ 339   3            else
+ 340   3            {
+ 341   4              Debug_print("Mac ERROR - 0\r\n");
+ 342   4              PrintString1("Mac ERROR - 0\r\n");
+ 343   4            }
+ 344   3          }while(k --);
+ 345   2        }
+ 346   1      }
+ 347          /*************************************************
+ 348            Copyright (C), 2016-2018, Omnivoltaic Energy Solutions Tech. Co., Ltd.
+ 349            
+ 350            Function:       // Achieve_master_mac
+ 351          
+ 352            Description:    // 上电获取Master Mac
+ 353          
+ 354            Calls:          // 
+ 355          
+ 356            Input:          // unsigned char delay_num 查询主机等待时间
+ 357          
+ 358            Output:         // 
+ 359            
+ 360            Return:         // 0 Sucess  0 faild
+ 361          
+ 362            Others:         // 
+ 363            
+ 364            Author:         // Liu Rongkun(Micheal)
+C51 COMPILER V9.52.0.0   T_SLAVERV1_PROTOCOL                                               05/18/2018 13:46:32 PAGE 7   
+
+ 365            
+ 366            Data:           // 2018/04/27
+ 367          *************************************************/
+ 368          unsigned char Achieve_master_mac(unsigned char delay_num)
+ 369          {
+ 370   1        unsigned char k , j, i;
+ 371   1        //Initialization Master Mac0
+ 372   1        for (i = 0 ; i < 27 ;i++)
+ 373   1        {
+ 374   2          Master_mac[i] = 0xAA;
+ 375   2        }
+ 376   1        k = 0;
+ 377   1        do{
+ 378   2            U2R_ON_IRQ;
+ 379   2            DATA_PIN_TX;
+ 380   2            Delay1ms();
+ 381   2            for(i = 0; i < 2; i++)
+ 382   2            {
+ 383   3              Uart2Send(0xAA);
+ 384   3              Uart2Send(0xAA);
+ 385   3              Uart2Send(0xAA);
+ 386   3              Uart2Send(0xC0);
+ 387   3            }
+ 388   2            PrintString2_num(Commond_PPID, 8);
+ 389   2            DATA_PIN_RX;
+ 390   2            Delay1ms();
+ 391   2            for(j = 0; j < k + 1; j++)
+ 392   2            {
+ 393   3                Delay100ms();
+ 394   3            }
+ 395   2            if(Uart2_RX_State == 3)
+ 396   2            {
+ 397   3              strncpy (Master_mac, Uart2_Buffer, 27);
+ 398   3              PrintString1_num(Uart2_Buffer,27);
+ 399   3              Uart2_RX_State = 0;
+ 400   3              break;
+ 401   3            }
+ 402   2          }while(k ++ < delay_num);
+ 403   1          Slaver_Read_Mac(MAC_ADDR, Slaver_mac, 27);
+ 404   1          if(0 == strncmp(Slaver_mac,Master_mac,27))
+ 405   1          {
+ 406   2              PrintString1_num(Slaver_mac,27);
+ 407   2              PrintString1("Master Slaver Mac is Same\r\n");
+ 408   2              return 0;
+ 409   2          }
+ 410   1          else
+ 411   1          {
+ 412   2              PrintString1_num(Slaver_mac,27);
+ 413   2              PrintString1("Master Slaver Mac is Difference\r\n");
+ 414   2              TURN_OFF_LOAD;
+ 415   2              return 1;
+ 416   2          }
+ 417   1          
+ 418   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1138    ----
+   CONSTANT SIZE    =    244    ----
+   XDATA SIZE       =     81    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      8      13
+C51 COMPILER V9.52.0.0   T_SLAVERV1_PROTOCOL                                               05/18/2018 13:46:32 PAGE 8   
+
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

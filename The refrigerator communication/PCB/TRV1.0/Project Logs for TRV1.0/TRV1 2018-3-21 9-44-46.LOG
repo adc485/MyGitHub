@@ -1,0 +1,27 @@
+Removed Pin From Net: NetName=GND Pin=ANT-1
+Removed Pin From Net: NetName=ANT Pin=ANT-2
+Removed Pin From Net: NetName=ANT Pin=ANT-2
+Removed Pin From Net: NetName=ANT Pin=ANT-2
+Removed Pin From Net: NetName=ANT Pin=ANT-2
+Added Component: Designator=LED4(LED-0603)
+Added Component: Designator=LED5(LED-0603)
+Added Component: Designator=R13(0603)
+Added Component: Designator=R14(0603)
+Added Pin To Net: NetName=ANT Pin=ANT-1
+Added Pin To Net: NetName=GND Pin=ANT-2
+Added Pin To Net: NetName=GND Pin=ANT-2
+Added Pin To Net: NetName=GND Pin=ANT-2
+Added Pin To Net: NetName=GND Pin=ANT-2
+Added Pin To Net: NetName=NetLED4_1 Pin=LED4-1
+Added Pin To Net: NetName=RXD Pin=LED4-2
+Added Pin To Net: NetName=NetLED5_1 Pin=LED5-1
+Added Pin To Net: NetName=TXD Pin=LED5-2
+Added Pin To Net: NetName=NetLED4_1 Pin=R13-1
+Added Pin To Net: NetName=VCC Pin=R13-2
+Added Pin To Net: NetName=NetLED5_1 Pin=R14-1
+Added Pin To Net: NetName=VCC Pin=R14-2
+Added Member To Class: ClassName=TRV1.0 Member=Component LED4 RX
+Added Member To Class: ClassName=TRV1.0 Member=Component LED5 TX
+Added Member To Class: ClassName=TRV1.0 Member=Component R13 4.7K
+Added Member To Class: ClassName=TRV1.0 Member=Component R14 4.7K
+Added Room: Name=TRV1.0

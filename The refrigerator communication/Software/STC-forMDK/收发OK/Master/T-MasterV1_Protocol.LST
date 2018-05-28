@@ -1,0 +1,173 @@
+C51 COMPILER V9.52.0.0   T_MASTERV1_PROTOCOL                                               04/18/2018 17:24:41 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE T_MASTERV1_PROTOCOL
+OBJECT MODULE PLACED IN T-MasterV1_Protocol.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE T-MasterV1_Protocol.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include "T-MasterV1.h"
+   2          
+   3          unsigned char bSynWord;
+   4          unsigned char DataSize = 0;
+   5          unsigned char Check_Btye_Xor;
+   6          unsigned char Uart2_RX_State;
+   7          unsigned char Uart1_RX_State;
+   8          extern unsigned char PaketSize_PTC;
+   9          
+  10          /*************************************************
+  11            Copyright (C), 2016-2018, Omnivoltaic Energy Solutions Tech. Co., Ltd.
+  12            
+  13            Function:       // Master_Uart_Process
+  14          
+  15            Description:    // 主机接收串口处理函数
+  16          
+  17            Calls:          // 
+  18          
+  19            Input:          // 
+  20          
+  21            Output:         // 
+  22            
+  23            Return:         // 
+  24          
+  25            Others:         // 
+  26            
+  27            Author:         // Liu Rongkun(Micheal)
+  28            
+  29            Data:           // 2018/03/29
+  30          *************************************************/
+  31          void Master_Uart_Process(void)
+  32          {
+  33   1        if(bSynWord == 0)
+  34   1        {
+  35   2          Uart2_Buffer[0] = Uart2_Buffer[1];
+  36   2          Uart2_Buffer[1] = Uart2_Buffer[2];
+  37   2          Uart2_Buffer[2] = S2BUF;
+  38   2           if( (Uart2_Buffer[0] == 0xc5) && (Uart2_Buffer[1] == 0x6a) && (Uart2_Buffer[2] == 0x29) )
+  39   2           {
+  40   3              bSynWord = 1;
+  41   3           }
+  42   2        }
+  43   1        else
+  44   1        {
+  45   2          Uart2_Buffer[DataSize+3] = S2BUF;
+  46   2          PaketSize_PTC = Uart2_Buffer[3];
+  47   2          DataSize++;
+  48   2          if(DataSize >= PaketSize_PTC - 3)
+  49   2          {       
+  50   3            bSynWord = 0;
+  51   3            DataSize = 0;
+  52   3            Check_Btye_Xor = CRC8(Uart2_Buffer, PaketSize_PTC -1 );
+  53   3            if(Uart2_Buffer[PaketSize_PTC - 1] == Check_Btye_Xor)
+  54   3            {
+  55   4              Uart2_RX_State = 1;
+C51 COMPILER V9.52.0.0   T_MASTERV1_PROTOCOL                                               04/18/2018 17:24:41 PAGE 2   
+
+  56   4              U2R_OFF_IRQ;
+  57   4            }     
+  58   3          }
+  59   2        }
+  60   1      }
+  61          /*************************************************
+  62            Copyright (C), 2016-2018, Omnivoltaic Energy Solutions Tech. Co., Ltd.
+  63            
+  64            Function:       // Master_Uart_Process
+  65          
+  66            Description:    // 数据处理串口
+  67          
+  68            Calls:          // 
+  69          
+  70            Input:          // 
+  71          
+  72            Output:         // 
+  73            
+  74            Return:         // 
+  75          
+  76            Others:         // 
+  77            
+  78            Author:         // Liu Rongkun(Micheal)
+  79            
+  80            Data:           // 2018/04/13
+  81          *************************************************/
+  82          void Master_Uart2_Process(void)
+  83          {
+  84   1            if(bSynWord_MCU == 0)
+  85   1            { 
+  86   2              
+  87   2               Uart1_Buffer[0] = Uart1_Buffer[1];
+  88   2               Uart1_Buffer[1] = Uart1_Buffer[2];
+  89   2               Uart1_Buffer[2] = SBUF;
+  90   2              if(Uart1_Buffer[0] == 0xc5 && Uart1_Buffer[1] == 0x6A && Uart1_Buffer[2] == 0x29)//
+  91   2              { 
+  92   3                bSynWord_MCU = 1;
+  93   3              }
+  94   2            }
+  95   1            else
+  96   1            {   
+  97   2              
+  98   2              Uart1_Buffer[DataSize_MCU+3] = SBUF;
+  99   2              PaketSize_MCU = Uart1_Buffer[3];
+ 100   2                  DataSize_MCU++;
+ 101   2              if(DataSize_MCU >= PaketSize_MCU - 3)
+ 102   2              {
+ 103   3                bSynWord_MCU = 0;
+ 104   3                DataSize_MCU = 0;
+ 105   3                Check_Btye_MCU = CRC8(Uart1_Buffer,PaketSize_MCU - 1);
+ 106   3                if(Uart1_Buffer[PaketSize_MCU - 1] == Check_Btye_MCU)
+ 107   3                { 
+ 108   4                  P34 = ~P34;
+ 109   4                  Uart1_RX_State = 1;
+ 110   4                  U1R_OFF_IRQ;
+ 111   4                }
+ 112   3              }
+ 113   2            }
+ 114   1      }
+ 115          /*************************************************
+ 116            Copyright (C), 2016-2018, Omnivoltaic Energy Solutions Tech. Co., Ltd.
+ 117            
+C51 COMPILER V9.52.0.0   T_MASTERV1_PROTOCOL                                               04/18/2018 17:24:41 PAGE 3   
+
+ 118            Function:       // Send_PREMABLE_CODE
+ 119          
+ 120            Description:    // 发送引导码
+ 121          
+ 122            Calls:          // 
+ 123          
+ 124            Input:          // unsigned char num 引导码循环次数
+ 125          
+ 126            Output:         // 
+ 127            
+ 128            Return:         // 
+ 129          
+ 130            Others:         // 
+ 131            
+ 132            Author:         // Liu Rongkun(Micheal)
+ 133            
+ 134            Data:           // 2018/04/16
+ 135          *************************************************/
+ 136          void Send_PREMABLE_CODE(unsigned char num)
+ 137          {
+ 138   1        unsigned char i;
+ 139   1        for(i = 0; i < num; i++)
+ 140   1        {
+ 141   2          Uart2Send(0xAA);
+ 142   2          Uart2Send(0xAA);
+ 143   2          Uart2Send(0xAA);
+ 144   2          Uart2Send(0xC0);
+ 145   2        }
+ 146   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    285    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      5       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,12 @@
+Added Component: Designator=Y1(XTAL-FC135)
+Added Component: Designator=Y2(PT4306 XTAL)
+Added Component: Designator=Y4(PT4306 XTAL)
+Added Pin To Net: NetName=NetC1_2 Pin=Y1-1
+Added Pin To Net: NetName=NetC2_2 Pin=Y1-2
+Added Pin To Net: NetName=NetC7_2 Pin=Y2-1
+Added Pin To Net: NetName=NetC8_2 Pin=Y2-2
+Added Pin To Net: NetName=NetU5_16 Pin=Y4-1
+Added Pin To Net: NetName=GND Pin=Y4-2
+Added Member To Class: ClassName=CommitV1.0 Member=Component Y1 32.768
+Added Member To Class: ClassName=CommitV1.0 Member=Component Y2 4M
+Added Member To Class: ClassName=CommitV1.0 Member=Component Y4 13.226M

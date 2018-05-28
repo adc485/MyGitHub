@@ -1,0 +1,309 @@
+C51 COMPILER V9.52.0.0   T_MASTERV1_PROTOCOL                                               04/28/2018 16:11:59 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE T_MASTERV1_PROTOCOL
+OBJECT MODULE PLACED IN T-MasterV1_Protocol.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE T-MasterV1_Protocol.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include "T-MasterV1.h"
+   2          
+   3          unsigned char bSynWord;
+   4          unsigned char DataSize = 0;
+   5          unsigned char Check_Btye_Xor;
+   6          unsigned char Uart2_RX_State;
+   7          unsigned char Uart1_RX_State;
+   8          extern unsigned char PaketSize_PTC;
+   9          
+  10          unsigned char Set_mac;
+  11          unsigned char code Find_PPID[8] = {0xc5, 0x6a, 0x29, 0x07, 0x08, 0x14, 0xcb};
+  12          unsigned char xdata Sava_Mac_Msg[27];
+  13          
+  14          /*************************************************
+  15            Copyright (C), 2016-2018, Omnivoltaic Energy Solutions Tech. Co., Ltd.
+  16            
+  17            Function:       // Master_Uart_Process
+  18          
+  19            Description:    // 主机接收串口处理函数
+  20          
+  21            Calls:          // 
+  22          
+  23            Input:          // 
+  24          
+  25            Output:         // 
+  26            
+  27            Return:         // 
+  28          
+  29            Others:         // 
+  30            
+  31            Author:         // Liu Rongkun(Micheal)
+  32            
+  33            Data:           // 2018/03/29
+  34          *************************************************/
+  35          void Master_Uart_Process(void)
+  36          {
+  37   1        if(bSynWord == 0)
+  38   1        {
+  39   2          Uart2_Buffer[0] = Uart2_Buffer[1];
+  40   2          Uart2_Buffer[1] = Uart2_Buffer[2];
+  41   2          Uart2_Buffer[2] = S2BUF;
+  42   2           if( (Uart2_Buffer[0] == 0xc5) && (Uart2_Buffer[1] == 0x6a) && (Uart2_Buffer[2] == 0x29) )
+  43   2           {
+  44   3              bSynWord = 1;
+  45   3           }
+  46   2           if( (Uart2_Buffer[0] == 0xAF) && (Uart2_Buffer[1] == 0xAF) && (Uart2_Buffer[2] == 0xAF) )
+  47   2           {
+  48   3      
+  49   3              bSynWord = 1;
+  50   3           }
+  51   2        }
+  52   1        else
+  53   1        {
+  54   2          Uart2_Buffer[DataSize+3] = S2BUF;
+  55   2          PaketSize_PTC = Uart2_Buffer[3];
+C51 COMPILER V9.52.0.0   T_MASTERV1_PROTOCOL                                               04/28/2018 16:11:59 PAGE 2   
+
+  56   2          DataSize++;
+  57   2          if(DataSize >= PaketSize_PTC - 3)
+  58   2          {       
+  59   3            bSynWord = 0;
+  60   3            DataSize = 0;
+  61   3            Check_Btye_Xor = CRC8(Uart2_Buffer, PaketSize_PTC -1 );
+  62   3            if(Uart2_Buffer[PaketSize_PTC - 1] == Check_Btye_Xor)
+  63   3            {
+  64   4              if( (Uart2_Buffer[0] == 0xAF) && (Uart2_Buffer[1] == 0xAF) && (Uart2_Buffer[2] == 0xAF) )
+  65   4               {
+  66   5        
+  67   5                  Uart2_RX_State = 9;
+  68   5               }
+  69   4              else
+  70   4              {
+  71   5                Uart2_RX_State = 1;
+  72   5              }
+  73   4              U2R_OFF_IRQ;
+  74   4            }     
+  75   3          }
+  76   2        }
+  77   1      }
+  78          /*************************************************
+  79            Copyright (C), 2016-2018, Omnivoltaic Energy Solutions Tech. Co., Ltd.
+  80            
+  81            Function:       // Master_Uart_Process
+  82          
+  83            Description:    // 数据处理串口
+  84          
+  85            Calls:          // 
+  86          
+  87            Input:          // 
+  88          
+  89            Output:         // 
+  90            
+  91            Return:         // 
+  92          
+  93            Others:         // 
+  94            
+  95            Author:         // Liu Rongkun(Micheal)
+  96            
+  97            Data:           // 2018/04/13
+  98          *************************************************/
+  99          void Master_Uart2_Process(void)
+ 100          {
+ 101   1            if(bSynWord_MCU == 0)
+ 102   1            { 
+ 103   2              
+ 104   2               Uart1_Buffer[0] = Uart1_Buffer[1];
+ 105   2               Uart1_Buffer[1] = Uart1_Buffer[2];
+ 106   2               Uart1_Buffer[2] = SBUF;
+ 107   2              if(Uart1_Buffer[0] == 0xc5 && Uart1_Buffer[1] == 0x6A && Uart1_Buffer[2] == 0x29)//
+ 108   2              { 
+ 109   3                bSynWord_MCU = 1;
+ 110   3              }
+ 111   2            }
+ 112   1            else
+ 113   1            {   
+ 114   2              
+ 115   2              Uart1_Buffer[DataSize_MCU+3] = SBUF;
+ 116   2              PaketSize_MCU = Uart1_Buffer[3];
+ 117   2              DataSize_MCU++;
+C51 COMPILER V9.52.0.0   T_MASTERV1_PROTOCOL                                               04/28/2018 16:11:59 PAGE 3   
+
+ 118   2              if(DataSize_MCU >= PaketSize_MCU - 3)
+ 119   2              {
+ 120   3                bSynWord_MCU = 0;
+ 121   3                DataSize_MCU = 0;
+ 122   3                Check_Btye_MCU = CRC8(Uart1_Buffer,PaketSize_MCU - 1);
+ 123   3                if(Uart1_Buffer[PaketSize_MCU - 1] == Check_Btye_MCU)
+ 124   3                { 
+ 125   4                  Uart1_RX_State = 1;
+ 126   4                  U1R_OFF_IRQ;
+ 127   4                }
+ 128   3              }
+ 129   2            }
+ 130   1      }
+ 131          /*************************************************
+ 132            Copyright (C), 2016-2018, Omnivoltaic Energy Solutions Tech. Co., Ltd.
+ 133            
+ 134            Function:       // Send_PREMABLE_CODE
+ 135          
+ 136            Description:    // 发送引导码
+ 137          
+ 138            Calls:          // 
+ 139          
+ 140            Input:          // unsigned char num 引导码循环次数
+ 141          
+ 142            Output:         // 
+ 143            
+ 144            Return:         // 
+ 145          
+ 146            Others:         // 
+ 147            
+ 148            Author:         // Liu Rongkun(Micheal)
+ 149            
+ 150            Data:           // 2018/04/16
+ 151          *************************************************/
+ 152          void Send_PREMABLE_CODE(unsigned char num)
+ 153          {
+ 154   1        unsigned char i;
+ 155   1        for(i = 0; i < num; i++)
+ 156   1        {
+ 157   2          Uart2Send(0xAA);
+ 158   2          Uart2Send(0xAA);
+ 159   2          Uart2Send(0xAA);
+ 160   2          Uart2Send(0xC0);
+ 161   2        }
+ 162   1      }
+ 163          /*************************************************
+ 164            Copyright (C), 2016-2018, Omnivoltaic Energy Solutions Tech. Co., Ltd.
+ 165            
+ 166            Function:       // Master_Process
+ 167          
+ 168            Description:    // 主机处理
+ 169          
+ 170            Calls:          // 
+ 171          
+ 172            Input:          // unsigned char num 引导码循环次数
+ 173          
+ 174            Output:         // 
+ 175            
+ 176            Return:         // 
+ 177          
+ 178            Others:         // 
+ 179            
+C51 COMPILER V9.52.0.0   T_MASTERV1_PROTOCOL                                               04/28/2018 16:11:59 PAGE 4   
+
+ 180            Author:         // Liu Rongkun(Micheal)
+ 181            
+ 182            Data:           // 2018/04/24
+ 183          *************************************************/
+ 184          void Master_Process(unsigned char num)
+ 185          {
+ 186   1        unsigned char i;
+ 187   1         if(Uart2_RX_State == 1)
+ 188   1          { 
+ 189   2      //      P30 = 1;
+ 190   2            P34 = 0;
+ 191   2            Uart2_RX_State = 0;
+ 192   2            U2R_OFF_IRQ;
+ 193   2            U1R_ON_IRQ;
+ 194   2            DATA_PIN_TX;
+ 195   2                for(i = 0; i < 16; i++)
+ 196   2                UartSend(0x00);
+ 197   2                PrintString1_num(Uart2_Buffer, Uart2_Buffer[3]);            
+ 198   2                Delay20ms();
+ 199   2                Delay20ms();
+ 200   2                      Delay20ms();
+ 201   2                      Delay20ms();
+ 202   2      
+ 203   2              if(Uart1_RX_State == 1)
+ 204   2              {
+ 205   3                Uart1_RX_State = 0;
+ 206   3                DATA_PIN_TX;
+ 207   3                Delay1ms();
+ 208   3                Send_PREMABLE_CODE(num);        
+ 209   3                PrintString2_num(Uart1_Buffer,Uart1_Buffer[3]);
+ 210   3                Delay1ms();
+ 211   3                DATA_PIN_RX;
+ 212   3              }
+ 213   2              U2R_ON_IRQ;
+ 214   2              DATA_PIN_RX;
+ 215   2              Uart2_RX_State = 0;
+ 216   2          }
+ 217   1          if(Uart2_RX_State == 9)
+ 218   1          {
+ 219   2            P34 = 1;
+ 220   2            Uart2_RX_State = 0;
+ 221   2            U2R_ON_IRQ;
+ 222   2            DATA_PIN_RX;
+ 223   2          }
+ 224   1          if(Set_mac == 2)
+ 225   1          {
+ 226   2            Set_mac = 0;
+ 227   2            i = 0;
+ 228   2            U2R_OFF_IRQ;
+ 229   2            DATA_PIN_TX;
+ 230   2            do{
+ 231   3              
+ 232   3                SET_MAC_LED = ~SET_MAC_LED; 
+ 233   3                Send_PREMABLE_CODE(num);        
+ 234   3                PrintString2_num(Sava_Mac_Msg,27);  
+ 235   3                Delay20ms();          
+ 236   3                if(P32 == 1)//松手
+ 237   3                {
+ 238   4                  DATA_PIN_RX;
+ 239   4                  U2R_ON_IRQ;
+ 240   4                  SET_MAC_LED = 1;
+ 241   4                  break;
+C51 COMPILER V9.52.0.0   T_MASTERV1_PROTOCOL                                               04/28/2018 16:11:59 PAGE 5   
+
+ 242   4                }
+ 243   3              }while(P32 == 0);
+ 244   2          }
+ 245   1      }
+ 246          //0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 
+ 247          //C5 6A 29 1B 08 14 30 33 41 48 31 38 30 32 30 30 30 30 30 32 3C 3C 3C 3C 3C 3C A0 
+ 248          void Find_mac(unsigned char k)
+ 249          {
+ 250   1        unsigned char i,j,delay;
+ 251   1        for( j = 0; j < k; j++)
+ 252   1        {
+ 253   2              for(i = 0; i < 16; i++)
+ 254   2              UartSend(0x00);
+ 255   2              PrintString1_num(Find_PPID, 7);   
+ 256   2              for( delay = 0; delay < j + 2; delay++)
+ 257   2              {
+ 258   3                Delay20ms();
+ 259   3              }
+ 260   2              if((Uart1_RX_State == 1) && (Uart1_Buffer[25] == 0x3c))
+ 261   2              {
+ 262   3                Sava_Mac_Msg[0] = 0xAF;
+ 263   3                Sava_Mac_Msg[1] = 0xAF;
+ 264   3                Sava_Mac_Msg[2] = 0xAF;
+ 265   3                for( i = 3; i < 26; i++ )
+ 266   3                {
+ 267   4                  Sava_Mac_Msg[i] = Uart1_Buffer[i];
+ 268   4                }
+ 269   3                Sava_Mac_Msg[26] = CRC8(Sava_Mac_Msg, Sava_Mac_Msg[3] - 1 );
+ 270   3                SET_MAC_LED = 0;
+ 271   3                Uart1_RX_State = 0;
+ 272   3                  break;
+ 273   3              }
+ 274   2        }
+ 275   1        SET_MAC_LED = 1;
+ 276   1        Debug_print("Find_PPID_NO_ANSWER !\r\n");
+ 277   1        
+ 278   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    680    ----
+   CONSTANT SIZE    =     32    ----
+   XDATA SIZE       =     27    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      6       8
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

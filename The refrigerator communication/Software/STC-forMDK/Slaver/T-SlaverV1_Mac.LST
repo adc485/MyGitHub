@@ -1,0 +1,203 @@
+C51 COMPILER V9.52.0.0   T_SLAVERV1_MAC                                                    05/18/2018 13:46:33 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE T_SLAVERV1_MAC
+OBJECT MODULE PLACED IN T-SlaverV1_Mac.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE T-SlaverV1_Mac.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include "T-SlaverV1.h"
+   2          
+   3          
+   4          //???????11.0592MHz
+   5          
+   6          //sfr     IAP_DATA    =   0xC2;
+   7          //sfr     IAP_ADDRH   =   0xC3;
+   8          //sfr     IAP_ADDRL   =   0xC4;
+   9          //sfr     IAP_CMD     =   0xC5;
+  10          //sfr     IAP_TRIG    =   0xC6;
+  11          //sfr     IAP_CONTR   =   0xC7;
+  12          
+  13          #define WT_30M          0x80
+  14          #define WT_24M          0x81
+  15          #define WT_20M          0x82
+  16          #define WT_12M          0x83
+  17          #define WT_6M           0x84
+  18          #define WT_3M           0x85
+  19          #define WT_2M           0x86
+  20          #define WT_1M           0x87
+  21          
+  22          void IapIdle()
+  23          {
+  24   1          IAP_CONTR = 0;                              
+  25   1          IAP_CMD = 0;                                
+  26   1          IAP_TRIG = 0;                               
+  27   1          IAP_ADDRH = 0x80;                           
+  28   1          IAP_ADDRL = 0;
+  29   1      }
+  30          
+  31          unsigned char IapRead(int addr)
+  32          {
+  33   1          unsigned char dat;
+  34   1      
+  35   1          IAP_CONTR = WT_12M;                         
+  36   1          IAP_CMD = 1;                                
+  37   1          IAP_ADDRL = addr;                          
+  38   1          IAP_ADDRH = addr >> 8;                     
+  39   1          IAP_TRIG = 0x5a;                           
+  40   1          IAP_TRIG = 0xa5;                            
+  41   1          _nop_();
+  42   1          dat = IAP_DATA;                            
+  43   1          IapIdle();                                
+  44   1      
+  45   1          return dat;
+  46   1      }
+  47          /*************************************************
+  48            Copyright (C), 2016-2018, Omnivoltaic Energy Solutions Tech. Co., Ltd.
+  49            
+  50            Function:       // IapProgram 
+  51          
+  52            Description:    // write mem 1byte
+  53          
+  54            Calls:          // System init
+  55          
+C51 COMPILER V9.52.0.0   T_SLAVERV1_MAC                                                    05/18/2018 13:46:33 PAGE 2   
+
+  56            Input:          // iint addr, unsigned char dat
+  57          
+  58            Output:         // Non
+  59            
+  60            Return:         // Non
+  61          
+  62            Others:         // 
+  63            
+  64            Author:         // Liu Rongkun(Micheal)
+  65            
+  66            Data:           // 2018/04/23
+  67          *************************************************/
+  68          void IapProgram(int addr, unsigned char dat)
+  69          {
+  70   1          IAP_CONTR = WT_12M;                        
+  71   1          IAP_CMD = 2;                               
+  72   1          IAP_ADDRL = addr;                           
+  73   1          IAP_ADDRH = addr >> 8;                     
+  74   1          IAP_DATA = dat;                             
+  75   1          IAP_TRIG = 0x5a;                            
+  76   1          IAP_TRIG = 0xa5;                          
+  77   1          _nop_();
+  78   1          IapIdle();                                
+  79   1      }
+  80          /*************************************************
+  81            Copyright (C), 2016-2018, Omnivoltaic Energy Solutions Tech. Co., Ltd.
+  82            
+  83            Function:       // IapErase
+  84          
+  85            Description:    // Erase mem
+  86          
+  87            Calls:          // System init
+  88          
+  89            Input:          // int addr,
+  90          
+  91            Output:         // Non
+  92            
+  93            Return:         // Non
+  94          
+  95            Others:         // 
+  96            
+  97            Author:         // Liu Rongkun(Micheal)
+  98            
+  99            Data:           // 2018/04/23
+ 100          *************************************************/
+ 101          void IapErase(int addr)
+ 102          {
+ 103   1          IAP_CONTR = WT_12M;                        
+ 104   1          IAP_CMD = 3;                           
+ 105   1          IAP_ADDRL = addr;                         
+ 106   1          IAP_ADDRH = addr >> 8;                  
+ 107   1          IAP_TRIG = 0x5a;                         
+ 108   1          IAP_TRIG = 0xa5;                           
+ 109   1          _nop_();                                    
+ 110   1          IapIdle();                                 
+ 111   1      }
+ 112          
+ 113          /*************************************************
+ 114            Copyright (C), 2016-2018, Omnivoltaic Energy Solutions Tech. Co., Ltd.
+ 115            
+ 116            Function:       // Slaver_Write_Mac
+ 117          
+C51 COMPILER V9.52.0.0   T_SLAVERV1_MAC                                                    05/18/2018 13:46:33 PAGE 3   
+
+ 118            Description:    // Write Mac
+ 119          
+ 120            Calls:          // System init
+ 121          
+ 122            Input:          // int addr, unsigned char *dat, int num
+ 123          
+ 124            Output:         // Non
+ 125            
+ 126            Return:         // Non
+ 127          
+ 128            Others:         // 
+ 129            
+ 130            Author:         // Liu Rongkun(Micheal)
+ 131            
+ 132            Data:           // 2018/04/23
+ 133          *************************************************/
+ 134          void Slaver_Write_Mac(int addr, unsigned char *dat, int num)
+ 135          {
+ 136   1        unsigned char Clean_num;
+ 137   1        for(Clean_num = 0; Clean_num < num; Clean_num++)
+ 138   1        {
+ 139   2          IapErase(addr + Clean_num);
+ 140   2        }
+ 141   1        for(Clean_num = 0; Clean_num < num; Clean_num++)
+ 142   1        {
+ 143   2          IapProgram(addr +Clean_num,*dat++);
+ 144   2        }
+ 145   1      }
+ 146          /*************************************************
+ 147            Copyright (C), 2016-2018, Omnivoltaic Energy Solutions Tech. Co., Ltd.
+ 148            
+ 149            Function:       // Slaver_Read_Mac
+ 150          
+ 151            Description:    // Read Mac
+ 152          
+ 153            Calls:          // System init
+ 154          
+ 155            Input:          // int addr, unsigned char *dat, int num
+ 156          
+ 157            Output:         // Non
+ 158            
+ 159            Return:         // Non
+ 160          
+ 161            Others:         // 
+ 162            
+ 163            Author:         // Liu Rongkun(Micheal)
+ 164            
+ 165            Data:           // 2018/04/23
+ 166          *************************************************/
+ 167          void Slaver_Read_Mac(int addr, unsigned char *dat, int num)
+ 168          {
+ 169   1        unsigned char Read_num;
+ 170   1        for(Read_num = 0; Read_num < num; Read_num++)
+ 171   1        {
+ 172   2          dat[Read_num] = IapRead(addr++);
+ 173   2        }
+ 174   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    239    ----
+   CONSTANT SIZE    =   ----    ----
+C51 COMPILER V9.52.0.0   T_SLAVERV1_MAC                                                    05/18/2018 13:46:33 PAGE 4   
+
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      14
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,5 @@
+Added Component: Designator=Y3(PT4450 XTAL)
+Added Pin To Net: NetName=NetC17_1 Pin=Y3-1
+Added Pin To Net: NetName=GND Pin=Y3-2
+Added Pin To Net: NetName=Netu4_1 Pin=Y3-3
+Added Member To Class: ClassName=CommitV2.0 Member=Component Y3 433.92M

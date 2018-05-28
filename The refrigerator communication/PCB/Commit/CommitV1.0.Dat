@@ -1,0 +1,46 @@
+Field=Comment~String~Comment~100|Field=Description~String~Description~100|Field=Designator~String~Designator~100|Field=Footprint~String~Footprint~100|Field=LibRef~String~LibRef~100|Field=Quantity~Integer~Quantity~100|ReportField=Currency~<none>|ReportField=ProductionQuantity~1|ReportField=ProjectFileName~CommitV1.0.PrjPCB|ReportField=ProjectFullPath~E:\OVES\冰箱通讯板\CommitV1.0.PrjPCB|ReportField=Title~Bill of Materials For Project [CommitV1.0.PrjPCB] (No PCB Document Selected)|ReportField=TotalQuantity~75|ReportField=ReportTime~13:33:33|ReportField=ReportDate~2018/3/21|ReportField=ReportDateTime~2018/3/21 13:33:33|ReportField=OutputName~Bill of Materials|ReportField=OutputType~BOM_PartType|ReportField=GeneratorName~BOM|ReportField=GeneratorDescription~Bill of Materials|ReportField=VariantName~None|ReportField=Address1~|ReportField=Address2~|ReportField=Address3~|ReportField=Address4~|ReportField=ApprovedBy~|ReportField=Author~|ReportField=CheckedBy~|ReportField=CompanyName~|ReportField=CurrentDate~2018/3/21|ReportField=CurrentTime~13:32:55|ReportField=Date~|ReportField=DocumentFullPathAndName~E:\OVES\冰箱通讯板\CommitV2.0.SchDoc|ReportField=DocumentName~CommitV2.0.SchDoc|ReportField=DocumentNumber~|ReportField=DrawnBy~|ReportField=Engineer~|ReportField=ImagePath~|ReportField=ModifiedDate~2018/3/20|ReportField=Organization~|ReportField=Revision~|ReportField=Rule~|ReportField=SheetNumber~|ReportField=SheetTotal~|ReportField=Time~|ReportField=Title~|ReportField=DataSourceFileName~CommitV1.0.PrjPCB|ReportField=DataSourceFullPath~E:\OVES\冰箱通讯板\CommitV1.0.PrjPCB
+SMA|Resistor|ANT|SWA-KE天线母座|Res2|1
+47uF|Capacitor|C1|0603|Cap|1
+104|Capacitor|C2, C11, C13, C16, C21, C22, C23, C24, C28|0603|Cap|9
+10uF|Capacitor|C10|0603|Cap|1
+220pF5%|Capacitor|C12|0603|Cap|1
+4.7pF5%|Capacitor|C14|0603|Cap|1
+12pF5%|Capacitor|C15|0603|Cap|1
+1pF|Capacitor|C17, C19|0603|Cap|2
+NC|Capacitor|C18, C20, C25, C26, C27, C30, C31, C32|0603|Cap|8
+220pF|Capacitor|C29|0603|Cap|1
+SMP1320|diode|D1, D2|0603|DIODE|2
+10.7M||F1|PT4450 XTAL|Filter|1
+180uH5%|Resistor|L1|0603|Res2|1
+22nH5%|Resistor|L2|0603|Res2|1
+47nH|Resistor|L3|0603|Res2|1
+180nH|Inductor|L4, L5, L6|0603|L|3
+0R|Inductor, Resistor|L7, R3, R5, R11, R12, R 15, R16, R20|0603|L, Res2|8
+RX|diode|LED4|LED-0603|DIODE|1
+TX|diode|LED5|LED-0603|DIODE|1
+USB_A||Port2|USB-A|USB|1
+DEBUG||Port3|STC_DEBUG|PIN-5|1
+USB_B||Port4|USB-A|USB|1
+Mold||Port5|Pin-8|Pin-8|1
+POWER|diode|POWER|2.54LED|DIODE|1
+AO3400(AO9T)|mosfet|Q1|SOT-23|MOSFET-N|1
+AO3407(A50T)|mosfet|Q2|SOT-23|MOSFET-P|1
+AO3407(P)|mosfet|Q3|SOT-23|MOSFET-P|1
+9014|NPN General Purpose Amplifier|Q4|SOT-23|2N3904|1
+1M|Resistor|R1|0603|Res2|1
+2.2K|Resistor|R2|0603|Res2|1
+100k|Resistor|R4, R19|0603|Res2|2
+10R|Resistor|R6|0603|Res2|1
+10K|Resistor|R7, R8, R18|0603|Res2|3
+5.1M|Resistor|R9|0603|Res2|1
+3.3K|Resistor|R10|0603|Res2|1
+4.7K|Resistor|R13, R14|0603|Res2|2
+RES|Resistor|R17|0603|Res2|1
+REST|key|SW1|SW-1|SW-P|1
+STC8F2K32S2||U1|LQPF-32|STC8F2K64S2|1
+HT7533-1||U2|3A5A3D|HT7533-1|1
+LM321||U3|AD8628|AD8628|1
+PT4302||U5|PT4302|PT4302|1
+PT4450||u4||PT4450|1
+433.92M||Y3|PT4450 XTAL|PT4450-XTAL|1
+13.226M|Crystal Oscillator|Y4|PT4306 XTAL|XTAL|1

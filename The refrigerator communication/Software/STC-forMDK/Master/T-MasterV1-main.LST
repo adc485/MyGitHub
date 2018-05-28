@@ -1,0 +1,89 @@
+C51 COMPILER V9.52.0.0   T_MASTERV1_MAIN                                                   05/08/2018 11:54:16 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE T_MASTERV1_MAIN
+OBJECT MODULE PLACED IN T-MasterV1-main.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE T-MasterV1-main.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include "T-MasterV1.h"
+   2          
+   3          sbit INT0 = 0xB2;
+   4          
+   5          extern unsigned char Check_Btye_Xor;
+   6          void T_Master_SYSInit(void)
+   7          {
+   8   1        STCUart1Init(); //Chat to Camp
+   9   1        STCUart2Init(); 
+  10   1        /*设置为开漏模式*/
+  11   1        P1M0 = 0xff;
+  12   1        P1M1 = 0xff; //0xff 4302接收  0x00 4450发射
+  13   1        
+  14   1        //INT0
+  15   1         IT0 = 0;                                  
+  16   1         EX0 = 1;  
+  17   1        
+  18   1        //PPID
+  19   1        Find_mac(30);
+  20   1      }
+  21          
+  22          void main()//Camp C5,6A,29,06,05,f4
+  23          {
+  24   1        //Master ok;
+  25   1        T_Master_SYSInit();
+  26   1        DATA_PIN_TX;
+  27   1        PrintString1("STC8F2K32S4 Master For CAMP Test Prgramme!\r\n");
+  28   1        PrintString2("STC8F2K32S4 Master For PTC Test Prgramme!\r\n"); 
+  29   1        DATA_PIN_RX;  
+  30   1        ENABLE_RX;
+  31   1        P34 = 0;
+  32   1        //ENABLE USB 
+  33   1      //  P3M0 = 0xFF;                                //??P0.0~P0.7??????
+  34   1      //  P3M1 = 0xFF;
+  35   1        //ENABLE USB 
+  36   1        while(1)
+  37   1        {
+  38   2          Master_Process(2);
+  39   2        }
+  40   1        //Test
+  41   1      //    P3M0 = 0xFF;                                //??P0.0~P0.7??????
+  42   1      //    P3M1 = 0xFF;
+  43   1      //  while(1);
+  44   1      }
+  45          void INT0_Isr() interrupt 0 using 1
+  46          {
+  47   1          if (INT0)                                
+  48   1          {
+  49   2            Delay200ms();
+  50   2            if(P32 == 1)
+  51   2              Set_mac = 1;                          
+  52   2          }
+  53   1          else
+  54   1          {
+  55   2            Delay1000ms();
+C51 COMPILER V9.52.0.0   T_MASTERV1_MAIN                                                   05/08/2018 11:54:16 PAGE 2   
+
+  56   2            if(P32 == 0)
+  57   2            {
+  58   3              Set_mac = 2;     
+  59   3              
+  60   3            }       
+  61   2          }
+  62   1      }
+  63          
+  64          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    106    ----
+   CONSTANT SIZE    =     89    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

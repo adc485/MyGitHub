@@ -1,0 +1,11 @@
+Change Component Comment : Designator=C19 Old Comment=1pF New Comment=1pF5%
+Change Component Comment : Designator=R13 Old Comment=4.7K New Comment=600R
+Change Component Comment : Designator=R14 Old Comment=4.7K New Comment=600R
+Change Component Comment : Designator=L3 Old Comment=47nH New Comment=47nH5%
+Change Component Comment : Designator=C28 Old Comment=104 New Comment=1045%
+Change Component Comment : Designator=L4 Old Comment=180nH New Comment=180nH5%
+Change Component Comment : Designator=L5 Old Comment=180nH New Comment=180nH5%
+Change Component Comment : Designator=L6 Old Comment=180nH New Comment=180nH5%
+Change Component Comment : Designator=L1 Old Comment=180uH5% New Comment=180nH5%
+Change Component Comment : Designator=C29 Old Comment=220pF New Comment=220pF5%
+Added Room: Name=CommitV2.0

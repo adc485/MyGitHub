@@ -1,0 +1,9 @@
+"STARTUP.obj",
+"T-SlaverV1-main.obj",
+"T-SlaverV1_Uart.obj",
+"T-SlaverV1_Protocol.obj",
+"T-SlaverV1_Delay.obj",
+"T-SlaverV1_Check.obj",
+"T-SlaverV1_Mac.obj" 
+TO "T-SlaverV1" 
+RAMSIZE(256) 

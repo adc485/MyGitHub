@@ -1,0 +1,7 @@
+Added Component: Designator=LED3(LED-0603)
+Added Pin To Net: NetName=CE Pin=LED3-1
+Added Pin To Net: NetName=GND Pin=LED3-2
+Added Pin To Net: NetName=NetC10_1 Pin=Port2-1
+Change Net Name : Old Net Name=NetC10_1 New Net Name=V5
+Added Member To Class: ClassName=TRV1.0 Member=Component LED3 RX
+Added Room: Name=TRV1.0

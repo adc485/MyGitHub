@@ -1,0 +1,8 @@
+Change Component Comment : Designator=D3 Old Comment=1N5824 New Comment=NC
+Change Component Comment : Designator=R13 Old Comment=4.7K New Comment=1.3K
+Change Component Comment : Designator=R14 Old Comment=4.7K New Comment=1.3K
+Change Component Comment : Designator=C10 Old Comment=10uF New Comment=1uF
+Change Component Comment : Designator=C33 Old Comment=220uF New Comment=NC
+Change Component Comment : Designator=C35 Old Comment=220uF New Comment=NC
+Change Component Comment : Designator=U3 Old Comment=LM2596 New Comment=NC
+Added Room: Name=TRV1.0

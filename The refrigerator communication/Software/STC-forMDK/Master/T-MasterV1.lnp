@@ -1,0 +1,8 @@
+"STARTUP.obj",
+"T-MasterV1-main.obj",
+"T-MasterV1_Uart.obj",
+"T-MasterV1_Protocol.obj",
+"T-MasterV1_Delay.obj",
+"T-MasterV1_Check.obj" 
+TO "T-MasterV1" 
+RAMSIZE(256) 
